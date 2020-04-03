@@ -1,159 +1,152 @@
-'''
-This file implements the Node and BinaryTree classes.
-These two classes are the building blocks for the BST, AVLTree, and Heap data structures.
-It is crucial to get these implemented correctly in order to be able to implement the other data structures.
-'''
+from Trees.BinaryTree import BinaryTree, Node
 
 
-class Stack:
-    def __init__(self):
-        self.items = []
+_example0 = BinaryTree()
 
-    def isEmpty(self):
-        return self.items == []
+_example1 = BinaryTree()
+_example1.root = Node(1)
+_example1.root.left = Node(2)
+_example1.root.left.left = Node(4)
+_example1.root.left.right = Node(5)
+_example1.root.right = Node(3)
 
-    def push(self, item):
-        self.items.append(item)
+_example2 = BinaryTree()
+_example2.root = Node(0)
+_example2.root.left = Node(1)
+_example2.root.left.left = Node(2)
+_example2.root.left.left.left = Node(3)
+_example2.root.left.left.left.left = Node(4)
+_example2.root.left.left.left.left.left = Node(5)
+_example2.root.left.left.left.left.left.left = Node(6)
+_example2.root.left.left.left.left.left.right = Node(7)
+_example2.root.left.left.right = Node(8)
+_example2.root.left.left.right.left = Node(9)
+_example2.root.left.left.right.right = Node(10)
+_example2.root.left.right = Node(11)
+_example2.root.right = Node(12)
+_example2.root.right.right = Node(13)
+_example2.root.right.right.right = Node(14)
 
-    def pop(self):
-        return self.items.pop()
-
-    def peek(self):
-        return self.items[len(self.items) - 1]
-
-    def size(self):
-        return len(self.items)
-
-class Node():
-    '''
-    You do not have to implement anything within this class.
-    Given a node t, you can visualize the node by running str(t) in the python interpreter.
-    This is a key method to perform debugging,
-    so you should get familiar with how to visualize these strings.
-    '''
-    def __init__(self,value):
-        self.value = value
-        self.left = None
-        self.right = None
-
-    def __str__(self):
-        ret = '('
-        ret += str(self.value)
-        ret += ' - '
-        if self.left:
-            ret += str(self.left)
-            ret += ' '
-        ret += '- '
-        if self.right:
-            ret += str(self.right)
-            ret += ' '
-        ret += ')'
-        return ret
+_example3 = BinaryTree()
+_example3.root = Node(0)
+_example3.root.left = Node(1)
+_example3.root.left.left = _example1.root
+_example3.root.left.left = _example2.root
+_example3.root.right = _example2.root
 
 
-class BinaryTree():
-    '''
-    This class is relatively useless by itself,
-    but it is the superclass for the BST, AVLTree, and Heap classes,
-    and it provides important helper functions for these classes.
-    If you don't implement all of the functions in this class correctly,
-    it will be impossible to implement those other classes.
-    '''
+def test__BinaryTree_preorder_print0():
+    assert _example0.print_tree('preorder') == ''
 
-    def __init__(self, root=None):
-        '''
-        My version of this function is slightly modified from the video notes.
-        I give the root variable a default value of None,
-        which allows us to create a BinaryTree that has no elements within it.
-        '''
-        if root:
-            self.root = Node(root)
-        else:
-            self.root = None
+def test__BinaryTree_preorder_print1():
+    assert _example1.print_tree('preorder') == '1-2-4-5-3-'
 
-    def __str__(self):
-        '''
-        We can visualize a tree by visualizing its root node.
-        '''
-        return str(self.root)
+def test__BinaryTree_preorder_print2():
+    assert _example2.print_tree('preorder') == '0-1-2-3-4-5-6-7-8-9-10-11-12-13-14-'
 
-    def print_tree(self, traversal_type):
-        '''
-        This function is taken from the lecture notes videos (almost) verbatim.
-        The difference is that when an incorrect input is given,
-        my version raises a ValueError rather than "failing silently".
-        It is always good practice to make errors as loud and explicit as possible,
-        as this will reduce the effort you need for debugging.
-        '''
-        if traversal_type == 'preorder':
-            return self.preorder_print(self.root, '')
-        elif traversal_type == 'inorder':
-            return self.inorder_print(self.root, '')
-        elif traversal_type == 'postorder':
-            return self.postorder_print(self.root, '')
-        else:
-            raise ValueError('Traversal type ' + str(traversal_type) + ' is not supported.')
-
-    def preorder_print(self, start, traversal):
-        '''
-        FIXME:
-        Implement this function.
-        The lecture notes videos provide the exact code you need.
-        '''
-        if start:
-            traversal+=(str(start.value)+'-')
-            traversal=self.preorder_print(start.left, traversal)
-            traversal = self.preorder_print(start.right, traversal)
-        return traversal
-
-    def inorder_print(self, start, traversal):
-        '''
-        FIXME:
-        Implement this function.
-        The lecture notes videos provide the exact code you need.
-        '''
-        if start:
-            traversal=self.inorder_print(start.left, traversal)
-            traversal+=(str(start.value)+'-')
-            traversal = self.inorder_print(start.right, traversal)
-        return traversal
-
-    def postorder_print(self, start, traversal):
-        '''
-        FIXME:
-        Implement this function.
-        The lecture notes videos provide the exact code you need.
-        '''
-        if start:
-            traversal=self.postorder_print(start.left, traversal)
-            traversal = self.postorder_print(start.right, traversal)
-            traversal += (str(start.value) + '-')
-        return traversal
+def test__BinaryTree_preorder_print3():
+    assert _example3.print_tree('preorder') == '0-1-0-1-2-3-4-5-6-7-8-9-10-11-12-13-14-0-1-2-3-4-5-6-7-8-9-10-11-12-13-14-'
 
 
-    def to_list(self, traversal_type):
-        '''
-        This function is similar to the print_tree function,
-        but instead of printing the tree,
-        it returns the contents of the tree as a list.
-        A general programming principle is that a function should return its results
-        rather than print them whenever possible.
-        If a function returns its results,
-        we can always print the returned results if we need to visualize them.
-        But by returning the results we can also do more computations on the results if needed.
-        Many of the test cases for more complicated tree functions rely on this to_list function,
-        so it is import to implement it correctly.
-        '''
-        if traversal_type == 'preorder':
-            return self.preorder(self.root, [])
-        elif traversal_type == 'inorder':
-            return self.inorder(self.root, [])
-        elif traversal_type == 'postorder':
-            return self.postorder(self.root, [])
-        else:
-            raise ValueError('traversal_type=' + str(traversal_type) + ' is not supported.')
+def test__BinaryTree_inorder_print0():
+    assert _example0.print_tree('inorder') == ''
 
-    def preorder(self, start, traversal):
-        '''
-        return
+def test__BinaryTree_inorder_print1():
+    assert _example1.print_tree('inorder') == '4-2-5-1-3-'
 
+def test__BinaryTree_inorder_print2():
+    assert _example2.print_tree('inorder') == '6-5-7-4-3-2-9-8-10-1-11-0-12-13-14-'
+
+def test__BinaryTree_inorder_print3():
+    assert _example3.print_tree('inorder') == '6-5-7-4-3-2-9-8-10-1-11-0-12-13-14-1-0-6-5-7-4-3-2-9-8-10-1-11-0-12-13-14-'
+
+
+def test__BinaryTree_postorder_print0():
+    assert _example0.print_tree('postorder') == ''
+
+def test__BinaryTree_postorder_print1():
+    assert _example1.print_tree('postorder') == '4-5-2-3-1-'
+
+def test__BinaryTree_postorder_print2():
+    assert _example2.print_tree('postorder') == '6-7-5-4-3-9-10-8-2-11-1-14-13-12-0-'
+
+def test__BinaryTree_postorder_print3():
+    assert _example3.print_tree('postorder') == '6-7-5-4-3-9-10-8-2-11-1-14-13-12-0-1-6-7-5-4-3-9-10-8-2-11-1-14-13-12-0-0-'
+
+
+def test__BinaryTree_preorder0():
+    assert _example0.to_list('preorder') == []
+
+def test__BinaryTree_preorder1():
+    assert _example1.to_list('preorder') == [1, 2, 4, 5, 3, ]
+
+def test__BinaryTree_preorder2():
+    assert _example2.to_list('preorder') == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, ]
+
+def test__BinaryTree_preorder3():
+    assert _example3.to_list('preorder') == [0, 1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, ]
+
+
+def test__BinaryTree_inorder0():
+    assert _example0.to_list('inorder') == []
+
+def test__BinaryTree_inorder1():
+    assert _example1.to_list('inorder') == [4, 2, 5, 1, 3]
+
+def test__BinaryTree_inorder2():
+    assert _example2.to_list('inorder') == [6, 5, 7, 4, 3, 2, 9, 8, 10, 1, 11, 0, 12, 13, 14]
+
+def test__BinaryTree_inorder3():
+    assert _example3.to_list('inorder') == [6, 5, 7, 4, 3, 2, 9, 8, 10, 1, 11, 0, 12, 13, 14, 1, 0, 6, 5, 7, 4, 3, 2, 9, 8, 10, 1, 11, 0, 12, 13, 14]
+
+
+def test__BinaryTree_postorder0():
+    assert _example0.to_list('postorder') == []
+
+def test__BinaryTree_postorder1():
+    assert _example1.to_list('postorder') == [4, 5, 2, 3, 1]
+
+def test__BinaryTree_postorder2():
+    assert _example2.to_list('postorder') == [6, 7, 5, 4, 3, 9, 10, 8, 2, 11, 1, 14, 13, 12, 0]
+
+def test__BinaryTree_postorder3():
+    assert _example3.to_list('postorder') == [6, 7, 5, 4, 3, 9, 10, 8, 2, 11, 1, 14, 13, 12, 0, 1, 6, 7, 5, 4, 3, 9, 10, 8, 2, 11, 1, 14, 13, 12, 0, 0]
+
+
+def test__BinaryTree_height0():
+    assert _example0.height() == -1
+
+def test__BinaryTree_height1():
+    assert _example1.height() == 2
+
+def test__BinaryTree_height2():
+    assert _example2.height() == 6
+
+def test__BinaryTree_height3():
+    assert _example3.height() == 8
+
+
+def test__BinaryTree_size0():
+    assert _example0.size() == 0
+
+def test__BinaryTree_size1():
+    assert _example1.size() == 5
+
+def test__BinaryTree_size2():
+    assert _example2.size() == 15
+
+def test__BinaryTree_size3():
+    assert _example3.size() == 32
+
+
+def test__BinaryTree_len0():
+    assert len(_example0) == 0
+
+def test__BinaryTree_len1():
+    assert len(_example1) == 5
+
+def test__BinaryTree_len2():
+    assert len(_example2) == 15
+
+def test__BinaryTree_len3():
+    assert len(_example3) == 32
