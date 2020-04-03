@@ -4,6 +4,32 @@ These two classes are the building blocks for the BST, AVLTree, and Heap data st
 It is crucial to get these implemented correctly in order to be able to implement the other data structures.
 '''
 
+class Node():
+    '''
+    You do not have to implement anything within this class.
+    Given a node t, you can visualize the node by running str(t) in the python interpreter.
+    This is a key method to perform debugging,
+    so you should get familiar with how to visualize these strings.
+    '''
+    def __init__(self,value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+    def __str__(self):
+        ret = '('
+        ret += str(self.value)
+        ret += ' - '
+        if self.left:
+            ret += str(self.left)
+            ret += ' '
+        ret += '- '
+        if self.right:
+            ret += str(self.right)
+            ret += ' '
+        ret += ')'
+        return ret
+    
 class BinaryTree():
     '''
     This class is relatively useless by itself,
