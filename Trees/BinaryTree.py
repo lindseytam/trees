@@ -4,6 +4,26 @@ These two classes are the building blocks for the BST, AVLTree, and Heap data st
 It is crucial to get these implemented correctly in order to be able to implement the other data structures.
 '''
 
+
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def isEmpty(self):
+        return self.items == []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        return self.items.pop()
+
+    def peek(self):
+        return self.items[len(self.items) - 1]
+
+    def size(self):
+        return len(self.items)
+
 class Node():
     '''
     You do not have to implement anything within this class.
@@ -140,7 +160,7 @@ class BinaryTree():
         '''
 
         if start:
-            traversal.append(str(start.value))
+            traversal.append(start.value)
             traversal=self.preorder(start.left, traversal)
             traversal = self.preorder(start.right, traversal)
         return traversal
@@ -152,7 +172,7 @@ class BinaryTree():
         '''
         if start:
             traversal=self.inorder(start.left, traversal)
-            traversal.append(str(start.value))
+            traversal.append(start.value)
             traversal = self.inorder(start.right, traversal)
         return traversal
 
@@ -164,7 +184,7 @@ class BinaryTree():
         if start:
             traversal=self.postorder(start.left, traversal)
             traversal = self.postorder(start.right, traversal)
-            traversal.append(str(start.value))
+            traversal.append(start.value)
         return traversal
 
     def __len__(self):
@@ -175,6 +195,7 @@ class BinaryTree():
         We are using the dunder method __len__ because that will allow us to use the len() function
         on our BinaryTree instances.
         '''
+
         return self.size_(self.root)
 
     def size(self):
@@ -183,6 +204,24 @@ class BinaryTree():
         Implement this function.
         The lecture notes videos provide the exact code you need.
         '''
+        if self.root is None:
+            return 0
+        # stack = Stack()
+        stack=[]
+        # stack.push(self.root)
+        stack.append(self.root)
+        size=1
+        while stack:
+            node=stack.pop()
+            if node.left:
+                size+=1
+                # stack.push(node.left)
+                stack.append(node.left)
+            if node.right:
+                size+=1
+                stack.append(node.right)
+        return size
+
 
     def size_(self, node):
         '''
@@ -190,6 +229,9 @@ class BinaryTree():
         Implement this function.
         The lecture notes videos provide the exact code you need.
         '''
+        if self.root is None:
+            return 0
+        return 1+self.size_(node.left)+self.size_(node.right)
 
     def height(self):
         return BinaryTree._height(self.root)
@@ -207,13 +249,9 @@ class BinaryTree():
         This makes it inconvenient to use,
         and so you should implement it as a static method.
         '''
+        if node is None:
+            return -1
+        left_height=BinaryTree._height(node.left)
+        right_height=BinaryTree._height(node.right)
+        return 1 + max(left_height, right_height)
 
-_example1 = BinaryTree()
-_example1.root = Node(1)
-_example1.root.left = Node(2)
-_example1.root.left.left = Node(4)
-_example1.root.left.right = Node(5)
-_example1.root.right = Node(3)
-print(_example1)
-print(_example1.print_tree('postorder'))
-print(_example1.to_list('postorder'))
