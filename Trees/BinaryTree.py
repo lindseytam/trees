@@ -76,24 +76,39 @@ class BinaryTree():
 
     def preorder_print(self, start, traversal):
         '''
-        FIXME: 
+        FIXME:
         Implement this function.
         The lecture notes videos provide the exact code you need.
         '''
+        if start:
+            traversal+=(str(start.value)+'.')
+            traversal=self.preorder_print(start.left, traversal)
+            traversal = self.preorder_print(start.right, traversal)
+        return traversal
 
     def inorder_print(self, start, traversal):
         '''
-        FIXME: 
+        FIXME:
         Implement this function.
         The lecture notes videos provide the exact code you need.
         '''
+        if start:
+            traversal=self.inorder_print(start.left, traversal)
+            traversal+=(str(start.value)+'.')
+            traversal = self.inorder_print(start.right, traversal)
+        return traversal
 
     def postorder_print(self, start, traversal):
         '''
-        FIXME: 
+        FIXME:
         Implement this function.
         The lecture notes videos provide the exact code you need.
         '''
+        if start:
+            traversal=self.inorder_print(start.left, traversal)
+            traversal = self.inorder_print(start.right, traversal)
+            traversal += (str(start.value) + '.')
+        return traversal
 
 
     def to_list(self, traversal_type):
@@ -101,8 +116,7 @@ class BinaryTree():
         This function is similar to the print_tree function,
         but instead of printing the tree,
         it returns the contents of the tree as a list.
-
-        A general programming principle is that a function should return its results 
+        A general programming principle is that a function should return its results
         rather than print them whenever possible.
         If a function returns its results,
         we can always print the returned results if we need to visualize them.
@@ -124,6 +138,15 @@ class BinaryTree():
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
+        elems=[]
+        if start:
+            # traversal+=(str(start.value)+'.')
+            elems.append(str(start.value)+'.')
+            # traversal=self.preorder_print(start.left, traversal)
+            elems.append(self.preorder_print(start.left, traversal))
+            # traversal = self.preorder_print(start.right, traversal)
+            elems.append(preorder_print(start.right, traversal))
+        return elems
 
     def inorder(self, start, traversal):
         '''
@@ -150,7 +173,7 @@ class BinaryTree():
     def size(self):
         '''
         FIXME:
-        Implement this function. 
+        Implement this function.
         The lecture notes videos provide the exact code you need.
         '''
 
@@ -168,8 +191,7 @@ class BinaryTree():
     def _height(node):
         '''
         FIXME:
-        Implement this function. 
-
+        Implement this function.
         The lecture notes videos provide (almost) the exact code you need.
         In the video, the function is not implemented as a static function,
         and so the self argument is passed in as the first argument of height.
