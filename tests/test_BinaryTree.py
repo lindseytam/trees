@@ -253,5 +253,6 @@ class BinaryTree():
             return -1
         left_height=BinaryTree._height(node.left)
         right_height=BinaryTree._height(node.right)
-        return 1 + max(left_height, right_height)
+        return max(left_height, right_height)
+#         return 1 + max(left_height, right_height)
 
