@@ -105,8 +105,8 @@ class BinaryTree():
         The lecture notes videos provide the exact code you need.
         '''
         if start:
-            traversal=self.inorder_print(start.left, traversal)
-            traversal = self.inorder_print(start.right, traversal)
+            traversal=self.postorder_print(start.left, traversal)
+            traversal = self.postorder_print(start.right, traversal)
             traversal += (str(start.value) + '-')
         return traversal
 
@@ -151,9 +151,9 @@ class BinaryTree():
         Implement this function by modifying the _print functions above.
         '''
         if start:
-            traversal=self.preorder(start.left, traversal)
+            traversal=self.inorder(start.left, traversal)
             traversal.append(str(start.value))
-            traversal = self.preorder(start.right, traversal)
+            traversal = self.inorder(start.right, traversal)
         return traversal
 
     def postorder(self, start, traversal):
@@ -162,8 +162,8 @@ class BinaryTree():
         Implement this function by modifying the _print functions above.
         '''
         if start:
-            traversal=self.preorder(start.left, traversal)
-            traversal = self.preorder(start.right, traversal)
+            traversal=self.postorder(start.left, traversal)
+            traversal = self.postorder(start.right, traversal)
             traversal.append(str(start.value))
         return traversal
 
@@ -207,3 +207,13 @@ class BinaryTree():
         This makes it inconvenient to use,
         and so you should implement it as a static method.
         '''
+
+_example1 = BinaryTree()
+_example1.root = Node(1)
+_example1.root.left = Node(2)
+_example1.root.left.left = Node(4)
+_example1.root.left.right = Node(5)
+_example1.root.right = Node(3)
+print(_example1)
+print(_example1.print_tree('postorder'))
+print(_example1.to_list('postorder'))
