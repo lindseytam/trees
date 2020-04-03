@@ -5,11 +5,12 @@ The functions in this file are considerably harder than the functions in the Bin
 
 from Trees.BinaryTree import BinaryTree, Node
 
-class BST():
+
+class BST(BinaryTree):
     '''
     FIXME:
     BST is currently not a subclass of BinaryTree.
-    You should make the necessary changes in the class declaration line above 
+    You should make the necessary changes in the class declaration line above
     and in the constructor below.
     '''
 
@@ -19,6 +20,8 @@ class BST():
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the BST.
         '''
+        self.root = None
+        BinaryTree.__init__(self, xs)
 
 
     def __repr__(self):
@@ -29,7 +32,6 @@ class BST():
         Recall that the __repr__ function should return a string that can be used to recreate a valid instance of the class.
         Thus, if you create a variable using the command BST([1,2,3])
         it's __repr__ will return "BST([1,2,3])"
-
         For the BST, type(self).__name__ will be the string "BST",
         but for the AVLTree, this expression will be "AVLTree".
         Using this expression ensures that all subclasses of BST will have a correct implementation of __repr__,
@@ -78,12 +80,27 @@ class BST():
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
+        if value < node.value:
+            if node.left is None:
+                # try removing BST
+                node.left = BST.Node(value)
+            else:
+                BST._insert(value, node.left)
+        elif value > node:
+            if node.right is None:
+                node.right = BST.Node(value)
+            else:
+                BST._insert(value, node.right)
+        else:
+            print("value is already present in tree")
+
+
+
 
 
     def insert_list(self, xs):
         '''
         Given a list xs, insert each element of xs into self.
-
         FIXME:
         Implement this function.
         '''
@@ -112,17 +129,22 @@ class BST():
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
+        if value > node.value and node.right:
+            return BST._find(value.right)
+        elif value < node.value and node.left:
+            return BST._find(value.left)
+        if value==node.value:
+            return True
+
 
 
     def find_smallest(self):
         '''
         Returns the smallest value in the tree.
-
         FIXME:
         Implement this function.
         This function is not implemented in the lecture notes,
         but if you understand the structure of a BST it should be easy to implement.
-
         HINT:
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
@@ -132,7 +154,6 @@ class BST():
     def find_largest(self):
         '''
         Returns the largest value in the tree.
-
         FIXME:
         Implement this function.
         This function is not implemented in the lecture notes,
@@ -142,18 +163,15 @@ class BST():
 
     def remove(self,value):
         '''
-        Removes value from the BST. 
+        Removes value from the BST.
         If value is not in the BST, it does nothing.
-
         FIXME:
         implement this function.
         There is no code given in any of the lecture videos on how to implement this function,
         but the video by HMC prof Colleen Lewis explains the algorithm.
-
         HINT:
-        You must have find_smallest/find_largest working correctly 
+        You must have find_smallest/find_largest working correctly
         before you can implement this function.
-
         HINT:
         Use a recursive helper function.
         '''
@@ -163,7 +181,8 @@ class BST():
     def remove_list(self, xs):
         '''
         Given a list xs, remove each element of xs from self.
-
         FIXME:
         Implement this function.
         '''
+
+
