@@ -49,8 +49,11 @@ class BST(BinaryTree):
         are actually working.
         '''
         if self.root:
-            return BST._is_bst_satisfied(self.root)
-        return True
+            satisfied= BST._is_bst_satisfied(self.root)
+
+            if satisfied is None:
+                return True
+        return False
 
     @staticmethod
     def _is_bst_satisfied(node):
@@ -60,7 +63,16 @@ class BST(BinaryTree):
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-
+        if node.left:
+            if node.value > node.left.value:
+                return BST._is_bst_satisfied(node.left)
+            else:
+                return False
+        if node.right:
+            if node.value > node.right.value:
+                return BST._is_bst_satisfied(node.right)
+            else:
+                return False
 
     def insert(self, value):
         '''
@@ -82,20 +94,16 @@ class BST(BinaryTree):
         '''
         if value < node.value:
             if node.left is None:
-                # try removing BST
-                node.left = BST.Node(value)
+                node.left = Node(value)
             else:
                 BST._insert(value, node.left)
         elif value > node:
             if node.right is None:
-                node.right = BST.Node(value)
+                node.right = Node(value)
             else:
                 BST._insert(value, node.right)
         else:
             print("value is already present in tree")
-
-
-
 
 
     def insert_list(self, xs):
@@ -150,6 +158,12 @@ class BST(BinaryTree):
         similar to how the insert and find functions have recursive helpers.
         '''
 
+    @staticmethod
+    def _find_smallest(node):
+        return 
+
+
+
 
     def find_largest(self):
         '''
@@ -186,3 +200,17 @@ class BST(BinaryTree):
         '''
 
 
+bst = BST()
+bst.root = Node(0)
+bst.root.left = Node(-1)
+
+bst1 = BST()
+bst1.root = Node(0)
+bst1.root.left = Node(-2)
+bst1.root.left.left = Node(-3)
+bst1.root.left.right = Node(-1)
+bst1.root.right = Node(2)
+bst1.root.right.left = Node(1)
+bst1.root.right.right = Node(3)
+print(bst.is_bst_satisfied())
+print(bst1.is_bst_satisfied())
