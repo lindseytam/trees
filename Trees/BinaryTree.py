@@ -81,7 +81,7 @@ class BinaryTree():
         The lecture notes videos provide the exact code you need.
         '''
         if start:
-            traversal+=(str(start.value)+'.')
+            traversal+=(str(start.value)+'-')
             traversal=self.preorder_print(start.left, traversal)
             traversal = self.preorder_print(start.right, traversal)
         return traversal
@@ -94,7 +94,7 @@ class BinaryTree():
         '''
         if start:
             traversal=self.inorder_print(start.left, traversal)
-            traversal+=(str(start.value)+'.')
+            traversal+=(str(start.value)+'-')
             traversal = self.inorder_print(start.right, traversal)
         return traversal
 
@@ -107,7 +107,7 @@ class BinaryTree():
         if start:
             traversal=self.inorder_print(start.left, traversal)
             traversal = self.inorder_print(start.right, traversal)
-            traversal += (str(start.value) + '.')
+            traversal += (str(start.value) + '-')
         return traversal
 
 
@@ -138,27 +138,34 @@ class BinaryTree():
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
-        elems=[]
+
         if start:
-            # traversal+=(str(start.value)+'.')
-            elems.append(str(start.value)+'.')
-            # traversal=self.preorder_print(start.left, traversal)
-            elems.append(self.preorder_print(start.left, traversal))
-            # traversal = self.preorder_print(start.right, traversal)
-            elems.append(preorder_print(start.right, traversal))
-        return elems
+            traversal.append(str(start.value))
+            traversal=self.preorder(start.left, traversal)
+            traversal = self.preorder(start.right, traversal)
+        return traversal
 
     def inorder(self, start, traversal):
         '''
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
+        if start:
+            traversal=self.preorder(start.left, traversal)
+            traversal.append(str(start.value))
+            traversal = self.preorder(start.right, traversal)
+        return traversal
 
     def postorder(self, start, traversal):
         '''
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
+        if start:
+            traversal=self.preorder(start.left, traversal)
+            traversal = self.preorder(start.right, traversal)
+            traversal.append(str(start.value))
+        return traversal
 
     def __len__(self):
         '''
@@ -186,6 +193,8 @@ class BinaryTree():
 
     def height(self):
         return BinaryTree._height(self.root)
+
+
 
     @staticmethod
     def _height(node):
