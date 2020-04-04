@@ -4,7 +4,7 @@ The functions in this file are considerably harder than the functions in the Bin
 '''
 
 from Trees.BinaryTree import BinaryTree, Node
-
+# from BinaryTree import BinaryTree, Node
 
 class BST(BinaryTree):
     '''
@@ -20,8 +20,12 @@ class BST(BinaryTree):
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the BST.
         '''
-        self.root = None
-        BinaryTree.__init__(self, xs)
+        if xs is None:
+            self.root = None
+        # BinaryTree.__init__(self, xs)
+        else:
+            return self.insert_list(xs)
+
 
 
     def __repr__(self):
@@ -111,6 +115,10 @@ class BST(BinaryTree):
         Implement this function.
         '''
 
+        for elem in xs:
+            self.insert(elem)
+        return self
+
 
     def __contains__(self, value):
         return self.find(value)
@@ -155,17 +163,19 @@ class BST(BinaryTree):
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
         '''
+       
         if self.root:
             return BST._find_smallest(self.root)
         return None
 
     @staticmethod
     def _find_smallest(node):
-        if node.left is None:
-            return node.value
-        else:
-            return BST._find_smallest(node.left)
+        # if node.left is None:
+        #     return node.value
+        # else:
+        #     return BST._find_smallest(node.left)
 
+        return
 
     def find_largest(self):
         '''
@@ -211,4 +221,5 @@ class BST(BinaryTree):
         FIXME:
         Implement this function.
         '''
+
 
