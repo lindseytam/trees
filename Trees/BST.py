@@ -5,6 +5,7 @@ The functions in this file are considerably harder than the functions in the Bin
 
 from Trees.BinaryTree import BinaryTree, Node
 
+
 class BST(BinaryTree):
     '''
     FIXME:
@@ -122,8 +123,8 @@ class BST(BinaryTree):
         if self.root:
             if BST._find(value, self.root):
                 return True
-        else:
-            return False
+            else:
+                return False
 
 
     @staticmethod
@@ -162,7 +163,8 @@ class BST(BinaryTree):
     def _find_smallest(node):
         if node.left is None:
             return node.value
-        return BST._find_smallest(node.left)
+        else:
+            return BST._find_smallest(node.left)
 
 
     def find_largest(self):
@@ -182,7 +184,8 @@ class BST(BinaryTree):
 
         if node.right is None:
             return node.value
-        return BST._find_largest(node.right)
+        else:
+            return BST._find_largest(node.right)
 
 
     def remove(self,value):
@@ -208,16 +211,4 @@ class BST(BinaryTree):
         FIXME:
         Implement this function.
         '''
-        return
 
-
-bst = BST()
-bst.root = Node(0)
-bst.root.left = Node(-2)
-bst.root.left.left = Node(-3)
-bst.root.left.right = Node(-1)
-bst.root.right = Node(2)
-bst.root.right.left = Node(1)
-bst.root.right.right = Node(3)
-print(bst.find_largest()) # false
-# print(bst3.is_bst_satisfied()) # false
