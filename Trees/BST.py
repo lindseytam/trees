@@ -205,18 +205,12 @@ class BST(BinaryTree):
         Use a recursive helper function.
         '''
         # self.root = BST._remove(self.root, value)
-        # return self.root
+
         return BST._remove(self.root, value)
-        # root = BST._remove(self.root, value)
-        # if root is None:
-        #     return self.root
-        # if self.root.find(value):
-        #     return self.root
-        # else:
-        #     return root
+
+
     @staticmethod
     def _remove(node, value):
-        print(node, node.value, value)
         if not node:
             return node
 
@@ -233,45 +227,23 @@ class BST(BinaryTree):
                 return node.right
 
             tmp = node.right
-            print("tmp",tmp)
             while tmp.left:
-                print("tmp.left",tmp.left)
                 tmp = tmp.left
 
-            print("tmp.value=", tmp.value, "tmp.", "node.left=", node.left)
-            # node.value = mini
             node.value = tmp.value
+      
             node.right = BST._remove(node.right, node.value)
-            print("node=", node)
-            # node.value = tmp.value
-            # node.right=BST._remove(node.right, node.value)
 
         return node
+    
     def remove_list(self, xs):
         '''
         Given a list xs, remove each element of xs from self.
         FIXME:
         Implement this function.
         '''
+        for elem in xs:
+            self.remove(elem)
 
 
 
-bst = BST()
-bst.root = Node(0)
-bst.root.left = Node(-3)
-bst.root.left.left = Node(-4)
-bst.root.left.right = Node(-1)
-bst.root.right = Node(2)
-bst.root.right.left = Node(1)
-bst.root.right.right = Node(4)
-xs=[5, 1,4,-1]
-# print(bst.remove(-1))
-
-bst2 = BST()
-bst2.root = Node(0)
-bst2.root.left = Node(-1)
-bst2.root.right = Node(1)
-# bst1=BST([0])
-print(bst.remove(0))
-
-# print(bst3.is_bst_satisfied()) # false
