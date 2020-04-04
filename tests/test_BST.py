@@ -146,6 +146,7 @@ def test__BST_remove1(xs):
     Therefore, you must have all the insert functionality completed before this test can pass.
     '''
     xs = list(set(xs))
+    print(xs)
     bst = BST(xs)
     while len(xs)>0:
         x = random.choice(xs)
