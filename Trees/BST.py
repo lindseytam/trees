@@ -135,9 +135,9 @@ class BST(BinaryTree):
         except that their method is an instance method when it should have been a static method.
         '''
         if value > node.value and node.right:
-            return BST._find(value.right)
+            return BST._find(value, node.right)
         elif value < node.value and node.left:
-            return BST._find(value.left)
+            return BST._find(value, node.left)
         if value==node.value:
             return True
 
@@ -163,9 +163,6 @@ class BST(BinaryTree):
         if node.left is None:
             return node.value
         return BST._find_smallest(node.left)
-
-
-
 
 
     def find_largest(self):
@@ -210,34 +207,16 @@ class BST(BinaryTree):
         Given a list xs, remove each element of xs from self.
         FIXME:
         Implement this function.
-        '''
+        '''a
 
 
 bst = BST()
 bst.root = Node(0)
-bst.root.left = Node(-1)
-
-bst1 = BST()
-bst1.root = Node(0)
-bst1.root.left = Node(-2)
-bst1.root.left.left = Node(-3)
-bst1.root.left.right = Node(-1)
-bst1.root.right = Node(2)
-bst1.root.right.left = Node(1)
-bst1.root.right.right = Node(3)
-
-bst2 = BST()
-bst2.root = Node(0)
-bst2.root.left = Node(-2)
-bst2.root.left.left = Node(-3)
-bst2.root.left.right = Node(-1)
-bst2.root.right = Node(2)
-bst2.root.right.left = Node(1)
-bst2.root.right.right = Node(-3)
-
-bst3 = BST()
-bst3.root = Node(-2)
-bst3.root.left = Node(-3)
-bst3.root.right = Node(-4)
-print(bst.find_smallest()) # false
+bst.root.left = Node(-2)
+bst.root.left.left = Node(-3)
+bst.root.left.right = Node(-1)
+bst.root.right = Node(2)
+bst.root.right.left = Node(1)
+bst.root.right.right = Node(3)
+print(bst.find_largest()) # false
 # print(bst3.is_bst_satisfied()) # false
