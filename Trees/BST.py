@@ -5,6 +5,7 @@ The functions in this file are considerably harder than the functions in the Bin
 
 from Trees.BinaryTree import BinaryTree, Node
 
+
 class BST(BinaryTree):
     '''
     FIXME:
@@ -231,11 +232,11 @@ class BST(BinaryTree):
                 tmp = tmp.left
 
             node.value = tmp.value
-      
             node.right = BST._remove(node.right, node.value)
-
+ 
         return node
-    
+
+
     def remove_list(self, xs):
         '''
         Given a list xs, remove each element of xs from self.
@@ -244,6 +245,4 @@ class BST(BinaryTree):
         '''
         for elem in xs:
             self.remove(elem)
-
-
 
