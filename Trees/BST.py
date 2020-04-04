@@ -4,7 +4,7 @@ The functions in this file are considerably harder than the functions in the Bin
 '''
 
 from Trees.BinaryTree import BinaryTree, Node
-# from BinaryTree import BinaryTree, Node
+
 
 class BST(BinaryTree):
     '''
@@ -20,11 +20,11 @@ class BST(BinaryTree):
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the BST.
         '''
+
         if xs is None:
             self.root = None
-        # BinaryTree.__init__(self, xs)
         else:
-            return self.insert_list(xs)
+            self.insert_list(xs)
 
 
 
@@ -53,8 +53,10 @@ class BST(BinaryTree):
         are actually working.
         '''
 
-        if self.root:
-            return BST._is_bst_satisfied(self.root)
+        # if self.root:
+        if self.value:
+            return BST._is_bst_satisfied(self.value)
+            # return BST._is_bst_satisfied(self.root)
         return True
 
     @staticmethod
@@ -80,6 +82,7 @@ class BST(BinaryTree):
         '''
         Inserts value into the BST.
         '''
+
         if self.root is None:
             self.root = Node(value)
         else:
@@ -117,12 +120,10 @@ class BST(BinaryTree):
 
         for elem in xs:
             self.insert(elem)
-        return self
 
 
     def __contains__(self, value):
         return self.find(value)
-
 
     def find(self, value):
         '''
@@ -163,7 +164,7 @@ class BST(BinaryTree):
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
         '''
-       
+
         if self.root:
             return BST._find_smallest(self.root)
         return None
@@ -185,6 +186,7 @@ class BST(BinaryTree):
         This function is not implemented in the lecture notes,
         but if you understand the structure of a BST it should be easy to implement.
         '''
+        print(self.root)
         if self.root:
             return BST._find_largest(self.root)
         return None
@@ -212,7 +214,7 @@ class BST(BinaryTree):
         HINT:
         Use a recursive helper function.
         '''
-        self.root = BST._remove(self.root,value)
+        self.root = BST._remove(self.root, value)
 
 
     def remove_list(self, xs):
@@ -223,3 +225,36 @@ class BST(BinaryTree):
         '''
 
 
+bst = BST()
+bst.root = Node(0)
+bst.root.left = Node(-3)
+bst.root.left.left = Node(-4)
+bst.root.left.right = Node(-1)
+bst.root.right = Node(2)
+bst.root.right.left = Node(1)
+bst.root.right.right = Node(4)
+xs=[5, 1,4,-1]
+print(bst.__contains__(-2)) # false
+# print(bst3.is_bst_satisfied()) # false
+
+xs=[5, 1,4,-1]
+# bst1=BST(xs)
+# print(bst1)
+# bst1 = BST(xs)
+# l=bst1.__init__(xs)
+# print(l)
+# print(l.root)
+# print(l.right)
+# print(bst1.is_bst_satisfied())
+# l=bst1.__init__(xs)
+# print(l.is_bst_satisfied())
+# print(bst.find_smallest())
+# print(bst1.is_bst_satisfied())
+
+
+def test__BST___init__(xs):
+    xs = list(set(xs))
+    bst = BST(xs)
+    assert bst.is_bst_satisfied()
+
+# print(test__BST___init__(xs))
