@@ -5,7 +5,6 @@ The functions in this file are considerably harder than the functions in the Bin
 
 from Trees.BinaryTree import BinaryTree, Node
 
-
 class BST(BinaryTree):
     '''
     FIXME:
@@ -205,9 +204,10 @@ class BST(BinaryTree):
         HINT:
         Use a recursive helper function.
         '''
-        # self.root = BST._remove(self.root, value)
+        print("12222=",BST._remove(self.root, value))
+        self.root = BST._remove(self.root, value)
 
-        return BST._remove(self.root, value)
+        # return BST._remove(self.root, value)
 
 
     @staticmethod
@@ -233,7 +233,7 @@ class BST(BinaryTree):
 
             node.value = tmp.value
             node.right = BST._remove(node.right, node.value)
- 
+
         return node
 
 
