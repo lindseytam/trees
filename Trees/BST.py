@@ -23,8 +23,6 @@ class BST(BinaryTree):
         if xs:
             self.insert_list(xs)
 
-
-
     def __repr__(self):
         '''
         Notice that in the BinaryTree class,
@@ -179,7 +177,6 @@ class BST(BinaryTree):
         This function is not implemented in the lecture notes,
         but if you understand the structure of a BST it should be easy to implement.
         '''
-        print(self.root)
         if self.root:
             return BST._find_largest(self.root)
         return None
@@ -208,17 +205,21 @@ class BST(BinaryTree):
         Use a recursive helper function.
         '''
         # self.root = BST._remove(self.root, value)
-        root = BST._remove(self.root, value)
-        if root is None:
-            return self.root
-
-        else:
-            return root
+        # return self.root
+        return BST._remove(self.root, value)
+        # root = BST._remove(self.root, value)
+        # if root is None:
+        #     return self.root
+        # if self.root.find(value):
+        #     return self.root
+        # else:
+        #     return root
     @staticmethod
     def _remove(node, value):
-        # print(node)
+        print(node, node.value, value)
         if not node:
             return node
+
         if node.value > value:
             node.left=BST._remove(node.left, value)
 
@@ -226,17 +227,24 @@ class BST(BinaryTree):
             node.right = BST._remove(node.right, value)
         else:
             if not node.right:
-                print("in here")
                 return node.left
+
             if not node.left:
-                print("no, in here")
                 return node.right
-            print("out here")
+
             tmp = node.right
+            print("tmp",tmp)
             while tmp.left:
+                print("tmp.left",tmp.left)
                 tmp = tmp.left
-            node.value = mini
-            node.right=BST._remove(node.right,node.value)
+
+            print("tmp.value=", tmp.value, "tmp.", "node.left=", node.left)
+            # node.value = mini
+            node.value = tmp.value
+            node.right = BST._remove(node.right, node.value)
+            print("node=", node)
+            # node.value = tmp.value
+            # node.right=BST._remove(node.right, node.value)
 
         return node
     def remove_list(self, xs):
@@ -257,5 +265,13 @@ bst.root.right = Node(2)
 bst.root.right.left = Node(1)
 bst.root.right.right = Node(4)
 xs=[5, 1,4,-1]
-print(bst.remove(-1))
+# print(bst.remove(-1))
+
+bst2 = BST()
+bst2.root = Node(0)
+bst2.root.left = Node(-1)
+bst2.root.right = Node(1)
+# bst1=BST([0])
+print(bst.remove(0))
+
 # print(bst3.is_bst_satisfied()) # false
