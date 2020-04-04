@@ -5,7 +5,6 @@ The functions in this file are considerably harder than the functions in the Bin
 
 from Trees.BinaryTree import BinaryTree, Node
 
-
 class BST(BinaryTree):
     '''
     FIXME:
@@ -53,10 +52,8 @@ class BST(BinaryTree):
         are actually working.
         '''
 
-        # if self.root:
-        if self.value:
-            return BST._is_bst_satisfied(self.value)
-            # return BST._is_bst_satisfied(self.root)
+        if self.root:
+            return BST._is_bst_satisfied(self.root)
         return True
 
     @staticmethod
