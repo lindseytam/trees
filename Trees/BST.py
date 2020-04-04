@@ -48,12 +48,10 @@ class BST(BinaryTree):
         This makes it possible to automatically test whether insert/delete functions
         are actually working.
         '''
-        if self.root:
-            satisfied= BST._is_bst_satisfied(self.root)
 
-            if satisfied is None:
-                return True
-        return False
+        if self.root:
+            return BST._is_bst_satisfied(self.root)
+        return True
 
     @staticmethod
     def _is_bst_satisfied(node):
@@ -63,16 +61,16 @@ class BST(BinaryTree):
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
+        left_valid = True
+        right_valid = True
+
         if node.left:
-            if node.value > node.left.value:
-                return BST._is_bst_satisfied(node.left)
-            else:
-                return False
+            left_valid = node.value > node.left.value and BST._is_bst_satisfied(node.left)
+
         if node.right:
-            if node.value > node.right.value:
-                return BST._is_bst_satisfied(node.right)
-            else:
-                return False
+            right_valid = node.value < node.right.value and BST._is_bst_satisfied(node.right)
+
+        return left_valid and right_valid
 
     def insert(self, value):
         '''
@@ -157,13 +155,16 @@ class BST(BinaryTree):
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
         '''
+        if self.root:
+            return BST._find_smallest(self.root)
+        return None
 
     @staticmethod
     def _find_smallest(node):
-        return 
-
-
-
+        if node.left is None:
+            return node.value
+        else:
+            return BST._find_smallest(node.left)
 
     def find_largest(self):
         '''
@@ -173,6 +174,16 @@ class BST(BinaryTree):
         This function is not implemented in the lecture notes,
         but if you understand the structure of a BST it should be easy to implement.
         '''
+        if self.root:
+            return BST._find_largest(self.root)
+        return None
+
+        @staticmethod
+        def _find_largest(node):
+            if node.right is None:
+                return node.value
+            else:
+                return BST._find_largest(node.right)
 
 
     def remove(self,value):
@@ -212,5 +223,19 @@ bst1.root.left.right = Node(-1)
 bst1.root.right = Node(2)
 bst1.root.right.left = Node(1)
 bst1.root.right.right = Node(3)
-print(bst.is_bst_satisfied())
-print(bst1.is_bst_satisfied())
+
+bst2 = BST()
+bst2.root = Node(0)
+bst2.root.left = Node(-2)
+bst2.root.left.left = Node(-3)
+bst2.root.left.right = Node(-1)
+bst2.root.right = Node(2)
+bst2.root.right.left = Node(1)
+bst2.root.right.right = Node(-3)
+
+bst3 = BST()
+bst3.root = Node(-2)
+bst3.root.left = Node(-3)
+bst3.root.right = Node(-4)
+print(bst2.find_smallest()) # false
+# print(bst3.is_bst_satisfied()) # false
