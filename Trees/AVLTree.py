@@ -112,23 +112,23 @@ class AVLTree(BST):
         return
 
 
-avltree0 = AVLTree()
-avltree0.root = Node(5)
-avltree0.root.left = Node(3)
-avltree0.root.left.left = Node(1)
-avltree0.root.right = Node(7)
-
-avl = AVLTree()
-
-
-# print(avltree0.is_avl_satisfied())
-avltree4 = AVLTree()
-avltree4.root = Node(5)
-avltree4.root.left = Node(3)
-avltree4.root.left.left = Node(1)
-avltree4.root.left.right = Node(4)
-avltree4.root.right = Node(7)
-avltree4.root.right.left = Node(6)
-avltree4.root.right.right = Node(9)
-
-print(AVLTree._left_rotate(avltree4.root))
+# avltree0 = AVLTree()
+# avltree0.root = Node(5)
+# avltree0.root.left = Node(3)
+# avltree0.root.left.left = Node(1)
+# avltree0.root.right = Node(7)
+#
+# avl = AVLTree()
+#
+#
+# # print(avltree0.is_avl_satisfied())
+# avltree4 = AVLTree()
+# avltree4.root = Node(5)
+# avltree4.root.left = Node(3)
+# avltree4.root.left.left = Node(1)
+# avltree4.root.left.right = Node(4)
+# avltree4.root.right = Node(7)
+# avltree4.root.right.left = Node(6)
+# avltree4.root.right.right = Node(9)
+#
+# print(AVLTree._left_rotate(avltree4.root))
