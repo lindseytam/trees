@@ -5,8 +5,6 @@ The functions in this file are considerably harder than the functions in the Bin
 
 from Trees.BinaryTree import BinaryTree, Node
 from Trees.BST import BST
-# from BinaryTree import BinaryTree, Node
-# from BST import BST
 
 class AVLTree(BST):
     '''
@@ -224,7 +222,7 @@ class AVLTree(BST):
         The textbook's class hierarchy for their AVL tree code is fairly different from our class hierarchy,
         however, so you will have to adapt their code.
         '''
-
+ 	return
 
     def insert(self, value):
         '''
@@ -242,24 +240,4 @@ class AVLTree(BST):
         but it will also call the left and right rebalancing functions.
         '''
 
-
-avltree0 = AVLTree()
-avltree0.root = Node(5)
-avltree0.root.left = Node(3)
-avltree0.root.left.left = Node(1)
-avltree0.root.right = Node(7)
-
-avl = AVLTree()
-
-
-# print(avltree0.is_avl_satisfied())
-avltree4 = AVLTree()
-avltree4.root = Node(5)
-avltree4.root.left = Node(3)
-avltree4.root.left.left = Node(1)
-avltree4.root.left.right = Node(4)
-avltree4.root.right = Node(7)
-avltree4.root.right.left = Node(6)
-avltree4.root.right.right = Node(9)
-
-print(AVLTree._left_rotate(avltree4.root))
+        return
