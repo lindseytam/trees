@@ -152,39 +152,25 @@ class AVLTree(BST):
     @staticmethod
     def _rebalance(node):
 
-        # if root.bf == 2:
-        #     if root.left.bf < 0:  # L-R
-        #         root.left = self.rotate_left(root.left)
-        #         return self.rotate_right(root)
-        #     else:  # L-L
-        #         return self.rotate_right(root)
-        # elif root.bf == -2:
-        #     if root.right.bf > 0:  # R-L
-        #         root.right = self.rotate_right(root.right)
-        #         return self.rotate_left(root)
-        #     else:  # R-R
-        #         return self.rotate_left(root)
-
         if AVLTree._balance_factor(node) > 1:
 
             if AVLTree._balance_factor(node.left) < 0:
-
                 node.left=AVLTree._left_rotate(node.left)
-                # print(AVLTree._right_rotate(node))
-                # AVLTree._right_rotate(node)
                 return AVLTree._right_rotate(node)
 
             else:
-                # print(AVLTree._right_rotate(node))
                 return AVLTree._right_rotate(node)
-                # AVLTree._right_rotate(node)
-        elif AVLTree._balance_factor(node) < 1:
+
+        elif AVLTree._balance_factor(node) < -1:
+
             if AVLTree._balance_factor(node.right) > 0:
                 node.right=AVLTree._right_rotate(node.right)
                 return AVLTree._left_rotate(node)
+
             else:
                 return AVLTree._left_rotate(node)
         else:
+
             return node
 
 
@@ -206,22 +192,10 @@ class AVLTree(BST):
 
 
         if not AVLTree._is_avl_satisfied(node):
+            node.left = AVLTree._rebalance(node.left)
+            node.right = AVLTree._rebalance(node.right)
             return AVLTree._rebalance(node)
         else:
             return node
 
-
-
-
-xs = [0, 1, 2, 3, -2, -1]
-avl = AVLTree()
-avl.insert_list(xs)
-print(avl)
-# avl = AVLTree()
-# for x in xs:
-#     avl.insert(x)
-#     print("avl=", avl)
-    # assert x in avl.to_list('inorder')
-    # assert avl.is_bst_satisfied()
-    # assert avl.is_avl_satisfied()
 
