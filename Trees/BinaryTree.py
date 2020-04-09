@@ -228,7 +228,7 @@ class BinaryTree():
         '''
         if node is None:
             # ?return -1
-            return 0
+            return -1
         # print("node.left=", node.left, "node.right=", node.right)
         left_height=BinaryTree._height(node.left)
         right_height=BinaryTree._height(node.right)
