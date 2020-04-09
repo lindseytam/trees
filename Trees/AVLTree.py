@@ -41,8 +41,13 @@ class AVLTree(BST):
         '''
         if node is None:
             return 0
+        print("BinaryTree._height(node.left)=", BinaryTree._height(node.left), "BinaryTree._height(node.right)=",BinaryTree._height(node.right))
+        # print(BinaryTree._height(node.left),BinaryTree._height(node.right))
         return BinaryTree._height(node.left) - BinaryTree._height(node.right)
-
+        # print("node.left=", node.left)
+        # return BinaryTree._height(node.left)
+        # print("node.right=", node.right)
+        # return BinaryTree._height(node.right)
 
     def is_avl_satisfied(self):
         '''
@@ -57,8 +62,10 @@ class AVLTree(BST):
         FIXME:
         Implement this function.
         '''
-
-        return (AVLTree._balance_factor(node) in [-1,0,1])
+        if node is None:
+            return True
+        return AVLTree._balance_factor(node) in [-1, 0, 1] and AVLTree._is_avl_satisfied(node.left) and AVLTree._is_avl_satisfied(node.right)
+        # return (AVLTree._balance_factor(node) in [-1,0,1])
 
     @staticmethod
     def _left_rotate(node):
@@ -84,9 +91,6 @@ class AVLTree(BST):
 
         new_node.left = new_left
 
-        # new_node = node.right
-        # node.right = new_node.left
-        # new_node.left = node
         return new_node
 
 
@@ -102,7 +106,19 @@ class AVLTree(BST):
         however, so you will have to adapt their code.
         '''
 
-        return
+        if node is None or node.left is None:
+            return node
+
+        new_node = Node(node.left.value)
+        new_node.right = node.left.left
+
+        new_right = Node(node.value)
+        new_right.right = node.right
+        new_right.left = node.left.right
+
+        new_node.right = new_right
+        return new_node
+
     def insert(self, value):
         '''
         FIXME:
@@ -121,27 +137,30 @@ class AVLTree(BST):
         return
 
 
-avltree0 = AVLTree()
-avltree0.root = Node(5)
-avltree0.root.left = Node(3)
-avltree0.root.left.left = Node(1)
-avltree0.root.right = Node(7)
+avl = AVLTree()
+avl.root = Node(0)
+avl.root.left = Node(-2)
+avl.root.left.left = Node(-3)
+avl.root.left.left.left = Node(-4)
+avl.root.left.right = Node(-1)
+avl.root.right = Node(2)
+avl.root.right.left = Node(1)
+avl.root.right.right = Node(3)
+avl.root.right.right.right = Node(4)
+avl.root.right.right.right.right = Node(5)
+assert avl.is_bst_satisfied()
+assert not avl.is_avl_satisfied()
 
 avl = AVLTree()
-
-
-# print(avltree0.is_avl_satisfied())
-avltree4 = AVLTree()
-avltree4.root = Node(5)
-avltree4.root.left = Node(3)
-avltree4.root.left.left = Node(1)
-avltree4.root.left.right = Node(4)
-avltree4.root.right = Node(7)
-avltree4.root.right.left = Node(6)
-avltree4.root.right.right = Node(9)
-
-rotated = AVLTree()
-rotated.root = AVLTree._left_rotate(avltree0.root)
-print(rotated.to_list('inorder'))
-
-print(avltree0.to_list('inorder'))
+avl.root = Node(0)
+avl.root.left = Node(-2)
+avl.root.left.left = Node(-3)
+avl.root.left.left.left = Node(-4)
+avl.root.left.left.left.left = Node(-5)
+avl.root.left.right = Node(-1)
+avl.root.right = Node(2)
+avl.root.right.left = Node(1)
+avl.root.right.right = Node(3)
+avl.root.right.right.right = Node(4)
+assert avl.is_bst_satisfied()
+assert not avl.is_avl_satisfied()
