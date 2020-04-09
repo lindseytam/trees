@@ -110,7 +110,7 @@ class AVLTree(BST):
             return node
 
         new_node = Node(node.left.value)
-        new_node.right = node.left.left
+        new_node.left = node.left.left
 
         new_right = Node(node.value)
         new_right.right = node.right
@@ -136,31 +136,3 @@ class AVLTree(BST):
         '''
         return
 
-
-avl = AVLTree()
-avl.root = Node(0)
-avl.root.left = Node(-2)
-avl.root.left.left = Node(-3)
-avl.root.left.left.left = Node(-4)
-avl.root.left.right = Node(-1)
-avl.root.right = Node(2)
-avl.root.right.left = Node(1)
-avl.root.right.right = Node(3)
-avl.root.right.right.right = Node(4)
-avl.root.right.right.right.right = Node(5)
-assert avl.is_bst_satisfied()
-assert not avl.is_avl_satisfied()
-
-avl = AVLTree()
-avl.root = Node(0)
-avl.root.left = Node(-2)
-avl.root.left.left = Node(-3)
-avl.root.left.left.left = Node(-4)
-avl.root.left.left.left.left = Node(-5)
-avl.root.left.right = Node(-1)
-avl.root.right = Node(2)
-avl.root.right.left = Node(1)
-avl.root.right.right = Node(3)
-avl.root.right.right.right = Node(4)
-assert avl.is_bst_satisfied()
-assert not avl.is_avl_satisfied()
