@@ -80,7 +80,6 @@ class Heap(BinaryTree):
         if self.root is None:
             self.root = Node(value)
             self.root.descendents = 1
-            # print(self.root)
         else:
             Heap._insert(value, self.root)
 
@@ -111,8 +110,9 @@ class Heap(BinaryTree):
         Heap._input(value, node)
         while not Heap._is_heap_satisfied(node):
             Heap._trickle_up(value, node)
+        return node
         # Heap._trickle_up(value, node)
-
+        # return node
 
     @staticmethod
     def _trickle_up(value, node):
@@ -198,18 +198,53 @@ class Heap(BinaryTree):
         FIXME:
         Implement this function.
         '''
+        if self.root is None or (self.root.left is None and self.root.right is None):
+            print("pass")
+            pass
+
+        elif self.root.left is None and self.root.right is None:
+
+            print("empty")
+            self.root = None
+        else:
+            return Heap._replace(self.root)
+
+
+    @staticmethod
+    def _replace(node):
+        # removes root node and replaces it with last elem
+        if node.right is None and node.left is None:
+            print("node.value=", node.value)
+            return node.value
+        if node.right is None:
+            last_elem = node.left.value
+            return last_elem
+        else:
+            left = Heap.size(node.left)
+            right = Heap.size(node.right)
+            print("left=", left, "right-", right)
+            if left > right:
+                return Heap._replace(node.left)
+            else:
+                return Heap._replace(node.right)
+
+
+    @staticmethod
+    def _trickle_down(node):
+        return
 
 
 
-xs = [1, 2, -1, 2, 2, 0, 6, -8, 8, 8]
+xs = [1, 2, -1]
 heap = Heap()
 for x in xs:
     heap.insert(x)
     assert x in heap.to_list('inorder')
     assert heap.is_heap_satisfied()
-print(heap)
+print("heap=",heap)
+# print(heap.remove_min())
 
-if len(xs)>0:
-    x = min(xs)
-    heap = Heap(xs)
-    assert x == heap.find_smallest()
+# if len(xs)>0:
+#     x = min(xs)
+#     heap = Heap(xs)
+#     assert x == heap.find_smallest()
