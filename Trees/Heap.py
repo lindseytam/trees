@@ -80,7 +80,7 @@ class Heap(BinaryTree):
         if self.root is None:
             self.root = Node(value)
             self.root.descendents = 1
-            print(self.root)
+            # print(self.root)
         else:
             Heap._insert(value, self.root)
 
@@ -115,7 +115,6 @@ class Heap(BinaryTree):
 
     @staticmethod
     def _trickle_up(value, node):
-
 
         if node.left is None and node.right is None:
             return
@@ -188,6 +187,8 @@ class Heap(BinaryTree):
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
         '''
+        if Heap.is_heap_satisfied(self):
+            return self.root.value
 
 
     def remove_min(self):
@@ -201,61 +202,16 @@ class Heap(BinaryTree):
 
 
 
-heap = Heap()
-heap.root = Node(0)
-heap.root.left = Node(2)
-heap.root.left.left = Node(2)
-heap.root.left.right = Node(5)
-heap.root.right = Node(0)
-heap.root.right.left = Node(0)
-heap.root.right.right = Node(30)
-assert heap.is_heap_satisfied()
-# print(heap.height())
-
-heap = Heap()
-heap.root = Node(-2)
-heap.root.left = Node(3)
-heap.root.right = Node(4)
-assert heap.is_heap_satisfied()
-
-
-heap = Heap()
-# assert heap.is_heap_satisfied()
-
-
-heap = Heap()
-heap.root = Node(0)
-heap.root.left = Node(-1)
-assert not heap.is_heap_satisfied()
-
-heap = Heap()
-heap.root = Node(0)
-heap.root.left = Node(-2)
-heap.root.left.left = Node(-3)
-heap.root.left.right = Node(-1)
-heap.root.right = Node(2)
-heap.root.right.left = Node(1)
-heap.root.right.right = Node(3)
-assert not heap.is_heap_satisfied()
-
-heap = Heap()
-heap.root = Node(0)
-heap.root.left = Node(2)
-heap.root.left.left = Node(3)
-heap.root.left.right = Node(5)
-heap.root.right = Node(1)
-heap.root.right.left = Node(4)
-heap.root.right.right = Node(-1)
-
-# assert not heap.is_heap_satisfied()
-
-
-xs = [3, 1, 2, 0, 5, -1]
+xs = [1, 2, -1, 2, 2, 0]
 heap = Heap()
 for x in xs:
-    print(heap.insert(x))
-    # heap.insert(x)
-
-    # assert x in heap.to_list('inorder')
-    # assert heap.is_heap_satisfied()
+    heap.insert(x)
+    assert x in heap.to_list('inorder')
+    assert heap.is_heap_satisfied()
 print(heap)
+
+
+if len(xs)>0:
+    x = min(xs)
+    heap = Heap(xs)
+    assert x == heap.find_smallest()
