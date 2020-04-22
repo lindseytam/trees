@@ -109,9 +109,9 @@ class Heap(BinaryTree):
     @staticmethod
     def _insert(value, node):
         Heap._input(value, node)
-        # while not Heap._is_heap_satisfied(node):
-        #     Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
+        while not Heap._is_heap_satisfied(node):
+            Heap._trickle_up(value, node)
+        # Heap._trickle_up(value, node)
 
 
     @staticmethod
@@ -130,8 +130,6 @@ class Heap(BinaryTree):
                 # return
         if node.right is not None and node.right.value == value:
             if node.value < value:
-                # return
-
                 pass
             else:
                 tmp_node = node.value
@@ -203,14 +201,13 @@ class Heap(BinaryTree):
 
 
 
-xs = [1, 2, -1, 2, 2, 0]
+xs = [1, 2, -1, 2, 2, 0, 6, -8, 8, 8]
 heap = Heap()
 for x in xs:
     heap.insert(x)
     assert x in heap.to_list('inorder')
     assert heap.is_heap_satisfied()
 print(heap)
-
 
 if len(xs)>0:
     x = min(xs)
