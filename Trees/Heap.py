@@ -84,6 +84,13 @@ class Heap(BinaryTree):
             Heap._insert(value, self.root)
 
     @staticmethod
+    def _insert(value, node):
+        Heap._input(value, node)
+        while not Heap._is_heap_satisfied(node):
+            Heap._trickle_up(value, node)
+        return node
+
+    @staticmethod
     def size(node):
         '''
         FIXME:
@@ -104,15 +111,6 @@ class Heap(BinaryTree):
                 size+=1
                 stack.append(node.right)
         return size
-
-    @staticmethod
-    def _insert(value, node):
-        Heap._input(value, node)
-        while not Heap._is_heap_satisfied(node):
-            Heap._trickle_up(value, node)
-        return node
-        # Heap._trickle_up(value, node)
-        # return node
 
     @staticmethod
     def _trickle_up(value, node):
@@ -199,34 +197,43 @@ class Heap(BinaryTree):
         Implement this function.
         '''
         if self.root is None or (self.root.left is None and self.root.right is None):
-            print("pass")
             pass
 
         elif self.root.left is None and self.root.right is None:
-
-            print("empty")
             self.root = None
+
         else:
-            return Heap._replace(self.root)
+            return Heap._find_last_val(self.root)
 
 
     @staticmethod
-    def _replace(node):
-        # removes root node and replaces it with last elem
+    def _find_last_val(node):
+        print("lpo=", node)
         if node.right is None and node.left is None:
-            print("node.value=", node.value)
-            return node.value
-        if node.right is None:
-            last_elem = node.left.value
-            return last_elem
+            val=node.value
+            node == None
+            # return val
+        elif node.right is None:
+            val = node.left.value
+            node.value = None
+            # return val
         else:
             left = Heap.size(node.left)
             right = Heap.size(node.right)
-            print("left=", left, "right-", right)
             if left > right:
-                return Heap._replace(node.left)
+                return Heap._find_last_val(node.left)
             else:
-                return Heap._replace(node.right)
+                return Heap._find_last_val(node.right)
+
+        return node
+
+    @staticmethod
+    def _replace(node):
+        node = Heap._find_last_val(node)
+
+        # node.value = Node(val)
+        # return node
+        print("node=", node)
 
 
     @staticmethod
@@ -242,7 +249,9 @@ for x in xs:
     assert x in heap.to_list('inorder')
     assert heap.is_heap_satisfied()
 print("heap=",heap)
+# f=heap.remove_min()
 # print(heap.remove_min())
+
 
 # if len(xs)>0:
 #     x = min(xs)
