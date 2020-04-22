@@ -90,6 +90,7 @@ class Heap(BinaryTree):
             Heap._trickle_up(value, node)
         # return node
 
+
     @staticmethod
     def size(node):
         '''
