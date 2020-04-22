@@ -246,7 +246,7 @@ heap.root.left.right = Node(5)
 heap.root.right = Node(1)
 heap.root.right.left = Node(4)
 heap.root.right.right = Node(-1)
-# print(heap.insert(3))
+
 # assert not heap.is_heap_satisfied()
 
 
