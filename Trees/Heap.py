@@ -3,7 +3,7 @@
 
 from Trees.BinaryTree import BinaryTree, Node
 
-class Heap():
+class Heap(BinaryTree):
     '''
     FIXME:
     Heap is currently not a subclass of BinaryTree.
@@ -17,6 +17,9 @@ class Heap():
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the Heap.
         '''
+        self.root = None
+        if xs:
+            self.insert_list(xs)
 
 
     def __repr__(self):
@@ -57,6 +60,18 @@ class Heap():
         except that their method is an instance method when it should have been a static method.
         '''
 
+        if node is None or (node.left is None and node.right is None):
+            return True
+
+        if node.right is None:
+            return node.value <= node.left.value
+
+        if node.value <= node.left.value and node.value <= node.right.value:
+            return Heap._is_heap_satisfied(node.left) and Heap._is_heap_satisfied(node.right)
+
+        else:
+            return False
+
 
     def insert(self, value):
         '''
@@ -65,16 +80,87 @@ class Heap():
         if self.root is None:
             self.root = Node(value)
             self.root.descendents = 1
+            print(self.root)
         else:
             Heap._insert(value, self.root)
 
+    @staticmethod
+    def size(node):
+        '''
+        FIXME:
+        Implement this function.
+        The lecture notes videos provide the exact code you need.
+        '''
+        if node is None:
+            return 0
+        stack=[]
+        stack.append(node)
+        size=1
+        while stack:
+            node=stack.pop()
+            if node.left:
+                size+=1
+                stack.append(node.left)
+            if node.right:
+                size+=1
+                stack.append(node.right)
+        return size
 
     @staticmethod
     def _insert(value, node):
+        Heap._input(value, node)
+        while not Heap._is_heap_satisfied(node):
+            Heap._trickle_up(value, node)
+
+
+    @staticmethod
+    def _trickle_up(value, node):
+
+
+        if node.left is None and node.right is None:
+            return
+        if node.left.value == value:
+            if node.value < value:
+                # return
+                pass
+            else:
+                tmp_node = node.value
+                node.value = node.left.value
+                node.left.value = tmp_node
+                # return
+        if node.right is not None and node.right.value == value:
+            if node.value < value:
+                # return
+
+                pass
+            else:
+                tmp_node = node.value
+                node.value = node.right.value
+                node.right.value = tmp_node
+                # return
+        else:
+            return Heap._trickle_up(value, node.left) and Heap._trickle_up(value, node.right)
+
+    @staticmethod
+    def _input(value, node):
         '''
         FIXME:
         Implement this function.
         '''
+
+        if node.left is None:
+            node.left = Node(value)
+            return
+        if node.right is None:
+            node.right = Node(value)
+            return
+        else:
+            left = Heap.size(node.left)
+            right = Heap.size(node.right)
+            if left <= right:
+                return Heap._input(value, node.left)
+            else:
+                return Heap._input(value, node.right)
 
 
     def insert_list(self, xs):
@@ -84,6 +170,9 @@ class Heap():
         FIXME:
         Implement this function.
         '''
+
+        for x in xs:
+            self.insert(x)
 
 
     def find_smallest(self):
@@ -109,3 +198,64 @@ class Heap():
         FIXME:
         Implement this function.
         '''
+
+
+
+heap = Heap()
+heap.root = Node(0)
+heap.root.left = Node(2)
+heap.root.left.left = Node(2)
+heap.root.left.right = Node(5)
+heap.root.right = Node(0)
+heap.root.right.left = Node(0)
+heap.root.right.right = Node(30)
+assert heap.is_heap_satisfied()
+# print(heap.height())
+
+heap = Heap()
+heap.root = Node(-2)
+heap.root.left = Node(3)
+heap.root.right = Node(4)
+assert heap.is_heap_satisfied()
+
+
+heap = Heap()
+# assert heap.is_heap_satisfied()
+
+
+heap = Heap()
+heap.root = Node(0)
+heap.root.left = Node(-1)
+assert not heap.is_heap_satisfied()
+
+heap = Heap()
+heap.root = Node(0)
+heap.root.left = Node(-2)
+heap.root.left.left = Node(-3)
+heap.root.left.right = Node(-1)
+heap.root.right = Node(2)
+heap.root.right.left = Node(1)
+heap.root.right.right = Node(3)
+assert not heap.is_heap_satisfied()
+
+heap = Heap()
+heap.root = Node(0)
+heap.root.left = Node(2)
+heap.root.left.left = Node(3)
+heap.root.left.right = Node(5)
+heap.root.right = Node(1)
+heap.root.right.left = Node(4)
+heap.root.right.right = Node(-1)
+# print(heap.insert(3))
+# assert not heap.is_heap_satisfied()
+
+
+xs = [3, 1, 2, 0, 5, -1]
+heap = Heap()
+for x in xs:
+    print(heap.insert(x))
+    # heap.insert(x)
+
+    # assert x in heap.to_list('inorder')
+    # assert heap.is_heap_satisfied()
+print(heap)
