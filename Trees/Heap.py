@@ -4,6 +4,7 @@
 from Trees.BinaryTree import BinaryTree, Node
 
 
+
 class Heap(BinaryTree):
     '''
     FIXME:
