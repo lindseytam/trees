@@ -155,8 +155,28 @@ class Heap(BinaryTree):
 
     @staticmethod
     def _trickle_(value, node):
-        while not Heap._is_heap_satisfied(node):
-            Heap._trickle_up(value, node)
+        # while not Heap._is_heap_satisfied(node):
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
 
         return node
     @staticmethod
@@ -304,7 +324,7 @@ class Heap(BinaryTree):
         return
 
 
-xs=[0, 0,0,0,0,0,-1]
+xs=[0,-1,1,1,-1,0,-1]
 heap = Heap()
 for x in xs:
     heap.insert(x)
@@ -331,7 +351,7 @@ if len(xs)>0:
     heap = Heap(xs)
     assert x == heap.find_smallest()
 
-xs=[0, 1, 0, 1, 0, 1, 0, 0],
+
 if len(xs)>0:
     x = min(xs)
     heap = Heap(xs)
