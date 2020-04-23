@@ -213,7 +213,6 @@ class BinaryTree():
         return BinaryTree._height(self.root)
 
 
-
     @staticmethod
     def _height(node):
         '''
