@@ -3,6 +3,7 @@
 
 from Trees.BinaryTree import BinaryTree, Node
 
+
 class Heap(BinaryTree):
     '''
     FIXME:
@@ -250,5 +251,6 @@ class Heap(BinaryTree):
     @staticmethod
     def _trickle_down(node):
         return
+
 
 
