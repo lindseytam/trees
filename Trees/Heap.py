@@ -77,19 +77,19 @@ class Heap(BinaryTree):
         '''
         Inserts value into the heap.
         '''
-        return
-        # if self.root is None:
-        #     self.root = Node(value)
-        #     self.root.descendents = 1
-        # else:
-        #     Heap._insert(value, self.root)
+
+        if self.root is None:
+            self.root = Node(value)
+            self.root.descendents = 1
+        else:
+            Heap._insert(value, self.root)
 
     @staticmethod
     def _insert(value, node):
-        return
-        # node= Heap._input(value, node)
+
+        node= Heap._input(value, node)
         # print("input-", node, "value=", value)
-        # Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
         # print("trickle=", Heap._trickle_up(value, node))
         # print("nooo=", node)
         # while not Heap._is_heap_satisfied(node):
@@ -253,18 +253,18 @@ class Heap(BinaryTree):
 
 
 
-xs = [1, 2, -1, -1, 0]
 # xs = [1, 2, -1, -1, 0]
-# xs = [1, 2, 5, 4, 6, 0]
-heap = Heap()
-for x in xs:
-    heap.insert(x)
-    print("heap=", heap)
-    assert x in heap.to_list('inorder')
-    assert heap.is_heap_satisfied()
-
-
-print("heap=",heap)
+# # xs = [1, 2, -1, -1, 0]
+# # xs = [1, 2, 5, 4, 6, 0]
+# heap = Heap()
+# for x in xs:
+#     heap.insert(x)
+#     print("heap=", heap)
+#     assert x in heap.to_list('inorder')
+#     assert heap.is_heap_satisfied()
+#
+#
+# print("heap=",heap)
 
 # print(heap.insert(0))
 # f=heap.remove_min()
