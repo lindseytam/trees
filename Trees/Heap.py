@@ -2,6 +2,7 @@
 '''
 
 from Trees.BinaryTree import BinaryTree, Node
+import heapq
 
 class Heap(BinaryTree):
     '''
@@ -87,9 +88,30 @@ class Heap(BinaryTree):
     @staticmethod
     def _insert(value, node):
 
+
+
+        # vals=heap.to_list('inorder')
+        # if len(vals) == 2**BinaryTree._height(node)-1:
+        #     return
+        # vals.append(value)
+        #
+        # current = len(vals)-1
+        # print("current=", current, vals)
+        #
+        # while current > 0 and vals[current] < vals[current-1]:
+        #     vals[current] = vals[current-1]
+        #     vals[current - 1] = value
+        #     # self.swap(current, self.parent(current))
+        #     current -= 1
+        # print("vals=", vals)
+        # print("ASd=", heapq.heapify(vals))
+
+        # print("1=", node)
         Heap._input(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
+        # print("2=", node)
+        # print("pppp=", heap.to_list('inorder'))
+        # Heap._trickle_up(value, node)
+        # print("3=",node)
         return node
 
     @staticmethod
@@ -114,7 +136,6 @@ class Heap(BinaryTree):
 
     @staticmethod
     def _trickle_up(value, node):
-
 
             if node.left is None and node.right is None:
                 pass
@@ -147,16 +168,23 @@ class Heap(BinaryTree):
         Implement this function.
         '''
 
-        loc=""
+
 
         if node.left is None:
             node.left = Node(value)
-            loc+="left"
+            if node.value > node.left.value:
+                node.left.value = node.value
+                node.value = value
             return node
+
         if node.right is None:
             node.right = Node(value)
-            loc += "right"
+
+            if node.value > node.right.value:
+                node.right.value = node.value
+                node.value = value
             return node
+
         else:
             left = Heap.size(node.left)
             right = Heap.size(node.right)
@@ -246,3 +274,38 @@ class Heap(BinaryTree):
     @staticmethod
     def _trickle_down(node):
         return
+
+
+xs = [0, 1, 0, 0]
+heap = Heap()
+for x in xs:
+    heap.insert(x)
+    assert x in heap.to_list('inorder')
+    print(heap)
+    assert heap.is_heap_satisfied()
+
+
+heap = Heap()
+heap.insert_list(xs)
+assert heap.is_heap_satisfied()
+for x in xs:
+    assert x in heap.to_list('inorder')
+
+
+heap = Heap(xs)
+assert heap.is_heap_satisfied()
+for x in xs:
+    assert x in heap.to_list('inorder')
+
+
+if len(xs)>0:
+    x = min(xs)
+    heap = Heap(xs)
+    assert x == heap.find_smallest()
+
+
+if len(xs)>0:
+    x = min(xs)
+    heap = Heap(xs)
+    assert x == heap.find_smallest()
+print("done")
