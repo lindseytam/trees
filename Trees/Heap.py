@@ -64,10 +64,10 @@ class Heap(BinaryTree):
         if node is None or (node.left is None and node.right is None):
             return True
 
-        if node.right is None:
+        elif node.right is None:
             return node.value <= node.left.value
 
-        if node.value <= node.left.value and node.value <= node.right.value:
+        elif node.value <= node.left.value and node.value <= node.right.value:
             return Heap._is_heap_satisfied(node.left) and Heap._is_heap_satisfied(node.right)
 
         else:
@@ -88,52 +88,9 @@ class Heap(BinaryTree):
     @staticmethod
     def _insert(value, node):
 
-
-
-        # vals=heap.to_list('inorder')
-        # if len(vals) == 2**BinaryTree._height(node)-1:
-        #     return
-        # vals.append(value)
-        #
-        # current = len(vals)-1
-        # print("current=", current, vals)
-        #
-        # while current > 0 and vals[current] < vals[current-1]:
-        #     vals[current] = vals[current-1]
-        #     vals[current - 1] = value
-        #     # self.swap(current, self.parent(current))
-        #     current -= 1
-        # print("vals=", vals)
-        # print("ASd=", heapq.heapify(vals))
-
         Heap._input(value, node)
-        print("heap1=", heap, "val=", value)
-        Heap._trickle_(value, node)
-        print("heap2=", heap)
-        # if BinaryTree.size(heap)>2:
-        #     Heap._trickle_up(value, node)
-        #     Heap._trickle_up(value, node)
-        #     Heap._trickle_up(value, node)
-        #     Heap._trickle_up(value, node)
-        #     Heap._trickle_up(value, node)
-        #     Heap._trickle_up(value, node)
-        #     Heap._trickle_up(value, node)
-        #     Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        # Heap._trickle_up(value, node)
-        return node
+        # Heap._trickle_up(new_node, node)
+
 
     @staticmethod
     def size(node):
@@ -155,55 +112,33 @@ class Heap(BinaryTree):
 
     @staticmethod
     def _trickle_(value, node):
-        # while not Heap._is_heap_satisfied(node):
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-        Heap._trickle_up(value, node)
-
+        while not Heap._is_heap_satisfied(node):
+            Heap._trickle_up(value, node)
         return node
-    @staticmethod
-    def _trickle_up(value, node):
-
-            if node.left is None and node.right is None:
-
-                pass
-            elif node.left.value == value:
-                print("node.left.value=", node.left.value)
-                if node.value < value:
-                    pass
-                else:
-                    node.left.value = node.value
-                    node.value = value
-
-
-            elif node.right is not None and node.right.value == value:
-                if node.value < value:
-                    pass
-                else:
-                    node.right.value = node.value
-                    node.value = value
-
-            else:
-
-                return Heap._trickle_up(value, node.left) and Heap._trickle_up(value, node.right)
+    # @staticmethod
+    # def _trickle_up(new_node, root):
+    #
+    #         if node.left is None and node.right is None:
+    #             return
+    #
+    #         elif node.left.value == value:
+    #             print("node.left.value=", node.left.value)
+    #             if node.value < value:
+    #                 pass
+    #             else:
+    #                 node.left.value = node.value
+    #                 node.value = value
+    #
+    #         elif node.right is not None and node.right.value == value:
+    #             if node.value < value:
+    #                 pass
+    #             else:
+    #                 node.right.value = node.value
+    #                 node.value = value
+    #
+    #         else:
+    #
+    #             return Heap._trickle_up(value, node.left) and Heap._trickle_up(value, node.right)
 
 
 
@@ -216,30 +151,26 @@ class Heap(BinaryTree):
         Implement this function.
         '''
 
-
-
         if node.left is None:
-            node.left = Node(value)
-            if node.value > node.left.value:
-                node.left.value = node.value
-                node.value = value
-            return node
+            new_node = Node(value)
+            node.left = new_node
 
-        if node.right is None:
-            node.right = Node(value)
 
-            if node.value > node.right.value:
-                node.right.value = node.value
-                node.value = value
-            return node
+        elif node.right is None:
+            new_node = Node(value)
+            node.right = new_node
 
         else:
             left = Heap.size(node.left)
             right = Heap.size(node.right)
-            if left <= right:
-                return Heap._input(value, node.left)
-            else:
-                return Heap._input(value, node.right)
+            new_node = node.left if left <= right else node.right
+            new_node = Heap._input(value, new_node)
+
+        if new_node.value < node.value:
+            tmp = new_node.value
+            new_node.value = node.value
+            node.value = tmp
+        return node
 
 
     def insert_list(self, xs):
@@ -324,7 +255,8 @@ class Heap(BinaryTree):
         return
 
 
-xs=[0,-1,1,1,-1,0,-1]
+xs=[0,0,0,0,0,0,0,-1]
+
 heap = Heap()
 for x in xs:
     heap.insert(x)
