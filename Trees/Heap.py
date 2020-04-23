@@ -88,9 +88,9 @@ class Heap(BinaryTree):
     def _insert(value, node):
 
         Heap._input(value, node)
-        Heap._trickle_up(value, node)
-        # while not Heap._is_heap_satisfied(node):
-        #     Heap._trickle_up(value, node)
+        # Heap._trickle_up(value, node)
+        while not Heap._is_heap_satisfied(node):
+            Heap._trickle_up(value, node)
         return node
 
     @staticmethod
@@ -116,26 +116,27 @@ class Heap(BinaryTree):
     @staticmethod
     def _trickle_up(value, node):
 
-        if node.left is None and node.right is None:
-            pass
 
-        elif node.left.value == value:
-            if node.value < value:
+            if node.left is None and node.right is None:
                 pass
+
+            elif node.left.value == value:
+                if node.value < value:
+                    pass
+                else:
+                    node.left.value = node.value
+                    node.value = value
+
+
+            elif node.right is not None and node.right.value == value:
+                if node.value < value:
+                    pass
+                else:
+                    node.right.value = node.value
+                    node.value = value
+
             else:
-                node.left.value = node.value
-                node.value = value
-
-
-        elif node.right is not None and node.right.value == value:
-            if node.value < value:
-                pass
-            else:
-                node.right.value = node.value
-                node.value = value
-
-        else:
-            return Heap._trickle_up(value, node.left) and Heap._trickle_up(value, node.right)
+                return Heap._trickle_up(value, node.left) and Heap._trickle_up(value, node.right)
 
 
 
@@ -246,5 +247,3 @@ class Heap(BinaryTree):
     @staticmethod
     def _trickle_down(node):
         return
-
-
