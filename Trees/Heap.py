@@ -89,8 +89,8 @@ class Heap(BinaryTree):
 
         Heap._input(value, node)
         Heap._trickle_up(value, node)
-        while not Heap._is_heap_satisfied(node):
-            Heap._trickle_up(value, node)
+        # while not Heap._is_heap_satisfied(node):
+        #     Heap._trickle_up(value, node)
         return node
 
     @staticmethod
