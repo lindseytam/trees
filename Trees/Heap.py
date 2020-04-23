@@ -3,8 +3,6 @@
 
 from Trees.BinaryTree import BinaryTree, Node
 
-
-
 class Heap(BinaryTree):
     '''
     FIXME:
@@ -89,15 +87,15 @@ class Heap(BinaryTree):
     @staticmethod
     def _insert(value, node):
 
-        node= Heap._input(value, node)
+        Heap._input(value, node)
         # print("input-", node, "value=", value)
         Heap._trickle_up(value, node)
         # print("trickle=", Heap._trickle_up(value, node))
         # print("nooo=", node)
-        # while not Heap._is_heap_satisfied(node):
-        #     print(node)
-        #     Heap._trickle_up(value, node)
-        # return node
+        while not Heap._is_heap_satisfied(node):
+        # #     print(node)
+            Heap._trickle_up(value, node)
+
 
 
     @staticmethod
@@ -124,7 +122,7 @@ class Heap(BinaryTree):
     def _trickle_up(value, node):
 
         if node.left is None and node.right is None:
-            return
+            pass
 
         elif node.left.value == value:
             if node.value < value:
@@ -143,6 +141,7 @@ class Heap(BinaryTree):
 
         else:
             return Heap._trickle_up(value, node.left) and Heap._trickle_up(value, node.right)
+
 
 
 
@@ -255,3 +254,10 @@ class Heap(BinaryTree):
 
 
 
+xs=[0, 0, 0, -1]
+heap = Heap()
+for x in xs:
+    heap.insert(x)
+    assert x in heap.to_list('inorder')
+    print(heap)
+    # assert heap.is_heap_satisfied()
