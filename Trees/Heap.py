@@ -77,11 +77,12 @@ class Heap(BinaryTree):
         '''
         Inserts value into the heap.
         '''
-        if self.root is None:
-            self.root = Node(value)
-            self.root.descendents = 1
-        else:
-            Heap._insert(value, self.root)
+        return
+        # if self.root is None:
+        #     self.root = Node(value)
+        #     self.root.descendents = 1
+        # else:
+        #     Heap._insert(value, self.root)
 
     @staticmethod
     def _insert(value, node):
@@ -259,7 +260,7 @@ heap = Heap()
 for x in xs:
     heap.insert(x)
     print("heap=", heap)
-    # assert x in heap.to_list('inorder')
+    assert x in heap.to_list('inorder')
     assert heap.is_heap_satisfied()
 
 
