@@ -252,26 +252,3 @@ class Heap(BinaryTree):
         return
 
 
-
-# xs = [1, 2, -1, -1, 0]
-# # xs = [1, 2, -1, -1, 0]
-# # xs = [1, 2, 5, 4, 6, 0]
-# heap = Heap()
-# for x in xs:
-#     heap.insert(x)
-#     print("heap=", heap)
-#     assert x in heap.to_list('inorder')
-#     assert heap.is_heap_satisfied()
-#
-#
-# print("heap=",heap)
-
-# print(heap.insert(0))
-# f=heap.remove_min()
-# print(heap.remove_min())
-
-
-# if len(xs)>0:
-#     x = min(xs)
-#     heap = Heap(xs)
-#     assert x == heap.find_smallest()
