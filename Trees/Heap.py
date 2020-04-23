@@ -107,6 +107,7 @@ class Heap(BinaryTree):
         # print("ASd=", heapq.heapify(vals))
 
         Heap._input(value, node)
+
         Heap._trickle_up(value, node)
         Heap._trickle_up(value, node)
         Heap._trickle_up(value, node)
@@ -115,7 +116,7 @@ class Heap(BinaryTree):
         Heap._trickle_up(value, node)
         Heap._trickle_up(value, node)
         Heap._trickle_up(value, node)
-        # print("3=",node)
+
         return node
 
     @staticmethod
@@ -280,14 +281,14 @@ class Heap(BinaryTree):
         return
 
 
-xs=[0, 0, 0, 0, 0, 0, 0, -1]
+xs=[1, 0,1, -1, 3, 0, -2]
 heap = Heap()
 for x in xs:
     heap.insert(x)
     assert x in heap.to_list('inorder')
-    print(heap)
     assert heap.is_heap_satisfied()
 
+print(heap)
 
 heap = Heap()
 heap.insert_list(xs)
