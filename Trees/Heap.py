@@ -107,13 +107,18 @@ class Heap(BinaryTree):
         # print("ASd=", heapq.heapify(vals))
 
         Heap._input(value, node)
-        if BinaryTree.size(heap)>2:
-            Heap._trickle_up(value, node, "left")
-            Heap._trickle_up(value, node, "left")
-            Heap._trickle_up(value, node, "left")
-            Heap._trickle_up(value, node, "right")
-            Heap._trickle_up(value, node, "right")
-            Heap._trickle_up(value, node, "right")
+        print("heap1=", heap, "val=", value)
+        Heap._trickle_(value, node)
+        print("heap2=", heap)
+        # if BinaryTree.size(heap)>2:
+        #     Heap._trickle_up(value, node)
+        #     Heap._trickle_up(value, node)
+        #     Heap._trickle_up(value, node)
+        #     Heap._trickle_up(value, node)
+        #     Heap._trickle_up(value, node)
+        #     Heap._trickle_up(value, node)
+        #     Heap._trickle_up(value, node)
+        #     Heap._trickle_up(value, node)
         # Heap._trickle_up(value, node)
         # Heap._trickle_up(value, node)
         # Heap._trickle_up(value, node)
@@ -128,7 +133,6 @@ class Heap(BinaryTree):
         # Heap._trickle_up(value, node)
         # Heap._trickle_up(value, node)
         # Heap._trickle_up(value, node)
-        print("node-", node)
         return node
 
     @staticmethod
@@ -149,15 +153,20 @@ class Heap(BinaryTree):
                 stack.append(node.right)
         return size
 
-
-
     @staticmethod
-    def _trickle_up(value, node, dir):
+    def _trickle_(value, node):
+        while not Heap._is_heap_satisfied(node):
+            Heap._trickle_up(value, node)
+
+        return node
+    @staticmethod
+    def _trickle_up(value, node):
 
             if node.left is None and node.right is None:
-                return
 
+                pass
             elif node.left.value == value:
+                print("node.left.value=", node.left.value)
                 if node.value < value:
                     pass
                 else:
@@ -173,10 +182,8 @@ class Heap(BinaryTree):
                     node.value = value
 
             else:
-                if dir=="left":
-                    return Heap._trickle_up(value, node.left, "left")
-                else:
-                    return Heap._trickle_up(value, node.right, "right")
+
+                return Heap._trickle_up(value, node.left) and Heap._trickle_up(value, node.right)
 
 
 
@@ -297,7 +304,7 @@ class Heap(BinaryTree):
         return
 
 
-xs=[0, -1]
+xs=[0, 0,0,0,0,0,-1]
 heap = Heap()
 for x in xs:
     heap.insert(x)
@@ -305,7 +312,6 @@ for x in xs:
     print(heap)
     assert heap.is_heap_satisfied()
 
-print(heap)
 
 heap = Heap()
 heap.insert_list(xs)
