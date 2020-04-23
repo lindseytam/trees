@@ -107,8 +107,10 @@ class Heap(BinaryTree):
         # print("ASd=", heapq.heapify(vals))
 
         Heap._input(value, node)
-        # print("2=", node)
-        # print("pppp=", heap.to_list('inorder'))
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
         Heap._trickle_up(value, node)
         Heap._trickle_up(value, node)
         Heap._trickle_up(value, node)
