@@ -81,13 +81,13 @@ class Heap(BinaryTree):
             self.root = Node(value)
             self.root.descendents = 1
         else:
-            # Heap._insert(value, self.root)
             Heap._insert(value, self.root)
 
     @staticmethod
     def _insert(value, node):
-        node= Heap._input(value, node)
-        print("input-", node, "value=", value)
+        return
+        # node= Heap._input(value, node)
+        # print("input-", node, "value=", value)
         # Heap._trickle_up(value, node)
         # print("trickle=", Heap._trickle_up(value, node))
         # print("nooo=", node)
