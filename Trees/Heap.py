@@ -88,7 +88,7 @@ class Heap(BinaryTree):
     def _insert(value, node):
         node= Heap._input(value, node)
         print("input-", node, "value=", value)
-        Heap._trickle_up(value, node)
+        # Heap._trickle_up(value, node)
         # print("trickle=", Heap._trickle_up(value, node))
         # print("nooo=", node)
         # while not Heap._is_heap_satisfied(node):
