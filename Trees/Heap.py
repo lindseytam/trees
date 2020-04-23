@@ -106,7 +106,6 @@ class Heap(BinaryTree):
         # print("vals=", vals)
         # print("ASd=", heapq.heapify(vals))
 
-        # print("1=", node)
         Heap._input(value, node)
         # print("2=", node)
         # print("pppp=", heap.to_list('inorder'))
