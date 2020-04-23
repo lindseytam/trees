@@ -81,23 +81,25 @@ class Heap(BinaryTree):
             self.root = Node(value)
             self.root.descendents = 1
         else:
+            # Heap._insert(value, self.root)
             Heap._insert(value, self.root)
 
     @staticmethod
     def _insert(value, node):
-        Heap._input(value, node)
-        while not Heap._is_heap_satisfied(node):
-            Heap._trickle_up(value, node)
+        node= Heap._input(value, node)
+        print("input-", node, "value=", value)
+        Heap._trickle_up(value, node)
+        # print("trickle=", Heap._trickle_up(value, node))
+        # print("nooo=", node)
+        # while not Heap._is_heap_satisfied(node):
+        #     print(node)
+        #     Heap._trickle_up(value, node)
         # return node
 
 
     @staticmethod
     def size(node):
-        '''
-        FIXME:
-        Implement this function.
-        The lecture notes videos provide the exact code you need.
-        '''
+
         if node is None:
             return 0
         stack=[]
@@ -113,30 +115,33 @@ class Heap(BinaryTree):
                 stack.append(node.right)
         return size
 
+
+
     @staticmethod
     def _trickle_up(value, node):
 
         if node.left is None and node.right is None:
             return
-        if node.left.value == value:
-            if node.value < value:
-                # return
-                pass
-            else:
-                tmp_node = node.value
-                node.value = node.left.value
-                node.left.value = tmp_node
-                # return
-        if node.right is not None and node.right.value == value:
+
+        elif node.left.value == value:
             if node.value < value:
                 pass
             else:
-                tmp_node = node.value
-                node.value = node.right.value
-                node.right.value = tmp_node
-                # return
+                node.left.value = node.value
+                node.value = value
+
+
+        elif node.right is not None and node.right.value == value:
+            if node.value < value:
+                pass
+            else:
+                node.right.value = node.value
+                node.value = value
+
         else:
             return Heap._trickle_up(value, node.left) and Heap._trickle_up(value, node.right)
+
+
 
     @staticmethod
     def _input(value, node):
@@ -145,12 +150,16 @@ class Heap(BinaryTree):
         Implement this function.
         '''
 
+        loc=""
+
         if node.left is None:
             node.left = Node(value)
-            return
+            loc+="left"
+            return node
         if node.right is None:
             node.right = Node(value)
-            return
+            loc += "right"
+            return node
         else:
             left = Heap.size(node.left)
             right = Heap.size(node.right)
@@ -209,7 +218,7 @@ class Heap(BinaryTree):
 
     @staticmethod
     def _find_last_val(node):
-        print("lpo=", node)
+
         if node.right is None and node.left is None:
             val=node.value
             node == None
@@ -243,13 +252,20 @@ class Heap(BinaryTree):
 
 
 
-xs = [1, 2, -1]
+xs = [1, 2, -1, -1, 0]
+# xs = [1, 2, -1, -1, 0]
+# xs = [1, 2, 5, 4, 6, 0]
 heap = Heap()
 for x in xs:
     heap.insert(x)
-    assert x in heap.to_list('inorder')
+    print("heap=", heap)
+    # assert x in heap.to_list('inorder')
     assert heap.is_heap_satisfied()
+
+
 print("heap=",heap)
+
+# print(heap.insert(0))
 # f=heap.remove_min()
 # print(heap.remove_min())
 
