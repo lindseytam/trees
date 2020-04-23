@@ -246,5 +246,3 @@ class Heap(BinaryTree):
     @staticmethod
     def _trickle_down(node):
         return
-
-
