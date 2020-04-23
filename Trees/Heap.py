@@ -110,7 +110,7 @@ class Heap(BinaryTree):
         Heap._input(value, node)
         # print("2=", node)
         # print("pppp=", heap.to_list('inorder'))
-        # Heap._trickle_up(value, node)
+        Heap._trickle_up(value, node)
         # print("3=",node)
         return node
 
@@ -276,7 +276,7 @@ class Heap(BinaryTree):
         return
 
 
-xs = [0, 1, 0, 0]
+xs = [0, 0, 0, -1]
 heap = Heap()
 for x in xs:
     heap.insert(x)
