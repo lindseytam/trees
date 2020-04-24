@@ -223,14 +223,13 @@ class Heap(BinaryTree):
 
 
     @staticmethod
-    def _find_last_val(val, node):
+    def _find_last_val(node):
 
         if node.right is None and node.left is None:
             node.value="hackey method"
 
             return node
         elif node.right is None:
-            # remove parent
             node.left = None
             return node
 
@@ -238,26 +237,19 @@ class Heap(BinaryTree):
             left = Heap.size(node.left)
             right = Heap.size(node.right)
             if left > right:
-                parent_node = node.left
-                Heap._find_last_val(val, node.left)
+
+                return Heap._find_last_val(val, node.left)
                 # print("1=", node)
                 # node.left.left = None
                 # print("5=", node)
-                node.value = val
+                # node.value = val
                 # print("6=", node)
-                return node
+                # return node
             else:
                 parent_node=node.right
-                Heap._find_last_val(val, node.right)
-                # print("2=", node)
-                # node.right=None
-                # print("3=", node)
-                # node.value = val
-                # print("4=", node)
-                return node
+                return Heap._find_last_val(val, node.right)
+                # return node
 
-        # node.value = val
-        # return node
 
     @staticmethod
     def _replace(node):
@@ -299,8 +291,7 @@ class Heap(BinaryTree):
 
 
 
-
-xs=[1, 2, 3, 4, 0, -1]
+xs=[0,0,0,0,0]
 heap = Heap(xs)
 while len(xs)>0:
     x = min(xs)
