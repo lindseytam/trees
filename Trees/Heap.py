@@ -238,7 +238,7 @@ class Heap(BinaryTree):
             right = Heap.size(node.right)
             if left > right:
 
-                return Heap._find_last_val(val, node.left)
+                return Heap._find_last_val(node.left)
                 # print("1=", node)
                 # node.left.left = None
                 # print("5=", node)
@@ -247,14 +247,14 @@ class Heap(BinaryTree):
                 # return node
             else:
                 parent_node=node.right
-                return Heap._find_last_val(val, node.right)
+                return Heap._find_last_val(node.right)
                 # return node
 
 
     @staticmethod
     def _replace(node):
         val = Heap._last_val(node)
-        Heap._find_last_val(val, node)
+        Heap._find_last_val(node)
         node.value=val
         print("find node=", node)
         Heap._hackey_solution(node)
@@ -291,12 +291,12 @@ class Heap(BinaryTree):
 
 
 
-xs=[0,0,0,0,0]
-heap = Heap(xs)
-while len(xs)>0:
-    x = min(xs)
-    xs.remove(min(xs))
-    print("HEP=", heap, "   heap.to_list('inorder')=", heap.to_list('inorder'), "  x=",x)
-    assert x in heap.to_list('inorder')
-    heap.remove_min()
-    assert heap.is_heap_satisfied()
+# xs=[0,0,0,2, 0, -1, 1, 1, 4]
+# heap = Heap(xs)
+# while len(xs)>0:
+#     x = min(xs)
+#     xs.remove(min(xs))
+#     print("HEP=", heap, "   heap.to_list('inorder')=", heap.to_list('inorder'), "  x=",x)
+#     assert x in heap.to_list('inorder')
+#     heap.remove_min()
+#     assert heap.is_heap_satisfied()
