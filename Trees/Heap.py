@@ -89,7 +89,6 @@ class Heap(BinaryTree):
     def _insert(value, node):
 
         Heap._input(value, node)
-        # Heap._trickle_up(new_node, node)
 
 
     @staticmethod
@@ -111,50 +110,14 @@ class Heap(BinaryTree):
         return size
 
     @staticmethod
-    def _trickle_(value, node):
-        while not Heap._is_heap_satisfied(node):
-            Heap._trickle_up(value, node)
-        return node
-    # @staticmethod
-    # def _trickle_up(new_node, root):
-    #
-    #         if node.left is None and node.right is None:
-    #             return
-    #
-    #         elif node.left.value == value:
-    #             print("node.left.value=", node.left.value)
-    #             if node.value < value:
-    #                 pass
-    #             else:
-    #                 node.left.value = node.value
-    #                 node.value = value
-    #
-    #         elif node.right is not None and node.right.value == value:
-    #             if node.value < value:
-    #                 pass
-    #             else:
-    #                 node.right.value = node.value
-    #                 node.value = value
-    #
-    #         else:
-    #
-    #             return Heap._trickle_up(value, node.left) and Heap._trickle_up(value, node.right)
-
-
-
-
-
-    @staticmethod
     def _input(value, node):
         '''
         FIXME:
         Implement this function.
         '''
-
         if node.left is None:
             new_node = Node(value)
             node.left = new_node
-
 
         elif node.right is None:
             new_node = Node(value)
@@ -170,7 +133,9 @@ class Heap(BinaryTree):
             tmp = new_node.value
             new_node.value = node.value
             node.value = tmp
+
         return node
+
 
 
     def insert_list(self, xs):
@@ -217,75 +182,130 @@ class Heap(BinaryTree):
             self.root = None
 
         else:
-            return Heap._find_last_val(self.root)
-
+            return Heap._replace(self.root)
 
     @staticmethod
-    def _find_last_val(node):
+    def _last_val(node):
 
         if node.right is None and node.left is None:
-            val=node.value
-            node == None
-            # return val
+            val = node.value
+            return val
         elif node.right is None:
             val = node.left.value
-            node.value = None
-            # return val
+            return val
+
         else:
             left = Heap.size(node.left)
             right = Heap.size(node.right)
             if left > right:
-                return Heap._find_last_val(node.left)
+                return Heap._last_val(node.left)
             else:
-                return Heap._find_last_val(node.right)
+                return Heap._last_val(node.right)
+
+    @staticmethod
+    def _hackey_solution(node):
+        # print("noodle=", node)
+        if node.left is None or node.right is None:
+            pass
+        elif node.left.value == "hackey method":
+            node.left = None
+            # return node
+        elif node.right.value == "hackey method":
+            node.right = None
+            # return node
+        else:
+            left = Heap.size(node.left)
+            right = Heap.size(node.right)
+            if left > right:
+                return Heap._hackey_solution(node.left)
+            else:
+                return Heap._hackey_solution(node.right)
+
+
+    @staticmethod
+    def _find_last_val(val, node):
+
+        if node.right is None and node.left is None:
+            node.value="hackey method"
+
+            return node
+        elif node.right is None:
+            # remove parent
+            node.left = None
+            return node
+
+        else:
+            left = Heap.size(node.left)
+            right = Heap.size(node.right)
+            if left > right:
+                parent_node = node.left
+                Heap._find_last_val(val, node.left)
+                # print("1=", node)
+                # node.left.left = None
+                # print("5=", node)
+                node.value = val
+                # print("6=", node)
+                return node
+            else:
+                parent_node=node.right
+                Heap._find_last_val(val, node.right)
+                # print("2=", node)
+                # node.right=None
+                # print("3=", node)
+                # node.value = val
+                # print("4=", node)
+                return node
+
+        # node.value = val
+        # return node
+
+    @staticmethod
+    def _replace(node):
+        val = Heap._last_val(node)
+        Heap._find_last_val(val, node)
+        node.value=val
+        print("find node=", node)
+        Heap._hackey_solution(node)
+        print("hackey node=", node)
+        Heap._trickle_down(node.value, node)
+        print("trickled node=", node)
 
         return node
 
     @staticmethod
-    def _replace(node):
-        node = Heap._find_last_val(node)
+    def _trickle_down(value, node):
 
-        # node.value = Node(val)
-        # return node
-        print("node=", node)
-
-
-    @staticmethod
-    def _trickle_down(node):
-        return
-
-
-xs=[0,0,0,0,0,0,0,-1]
-
-heap = Heap()
-for x in xs:
-    heap.insert(x)
-    assert x in heap.to_list('inorder')
-    print(heap)
-    assert heap.is_heap_satisfied()
-
-
-heap = Heap()
-heap.insert_list(xs)
-assert heap.is_heap_satisfied()
-for x in xs:
-    assert x in heap.to_list('inorder')
+        if node.right is None and node.left is None:
+            return node
+        elif node.right is None:
+            # print("node.value=", node.value)
+            if node.value <= node.left.value:
+                return node
+            else:
+                tmp_node=node.value
+                node.value=node.left.value
+                node.left.value=tmp_node
+        else:
+            if node.left.value < node.right.value:
+                tmp_node = node.value
+                node.value = node.left.value
+                node.left.value = tmp_node
+                return Heap._trickle_down(value, node.left)
+            else:
+                tmp_node = node.value
+                node.value = node.right.value
+                node.right.value = tmp_node
+                return Heap._trickle_down(value, node.right)
 
 
+
+
+xs=[1, 2, 3, 4, 0, -1]
 heap = Heap(xs)
-assert heap.is_heap_satisfied()
-for x in xs:
+while len(xs)>0:
+    x = min(xs)
+    xs.remove(min(xs))
+    print("HEP=", heap, "   heap.to_list('inorder')=", heap.to_list('inorder'), "  x=",x)
     assert x in heap.to_list('inorder')
-
-
-if len(xs)>0:
-    x = min(xs)
-    heap = Heap(xs)
-    assert x == heap.find_smallest()
-
-
-if len(xs)>0:
-    x = min(xs)
-    heap = Heap(xs)
-    assert x == heap.find_smallest()
-print("done")
+    heap.remove_min()
+    assert heap.is_heap_satisfied()
