@@ -256,11 +256,11 @@ class Heap(BinaryTree):
         val = Heap._last_val(node)
         Heap._find_last_val(node)
         node.value=val
-        print("find node=", node)
+        # print("find node=", node)
         Heap._hackey_solution(node)
-        print("hackey node=", node)
+        # print("hackey node=", node)
         Heap._trickle_down(node.value, node)
-        print("trickled node=", node)
+        # print("trickled node=", node)
 
         return node
 
@@ -291,7 +291,7 @@ class Heap(BinaryTree):
 
 
 
-# xs=[0,0,0,2, 0, -1, 1, 1, 4]
+# xs=[0, 0, 0, 0, 1, 1, 0, -1, -1, 0, 2, 1, 0]
 # heap = Heap(xs)
 # while len(xs)>0:
 #     x = min(xs)
