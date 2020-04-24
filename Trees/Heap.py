@@ -178,12 +178,11 @@ class Heap(BinaryTree):
         Implement this function.
         '''
         if self.root is None or (self.root.left is None and self.root.right is None):
-            pass
-
-        elif self.root.left is None and self.root.right is None:
             self.root = None
+            return self.root
 
         else:
+            print("f")
             return Heap._replace(self.root)
 
     @staticmethod
@@ -298,15 +297,15 @@ class Heap(BinaryTree):
                     return Heap._trickle_down(value, node.right)
 
 
-
-xs=[0, 1, 0, 1, -1, -1, 0]
+xs=[0]
+xs = list(set(xs))
 heap = Heap(xs)
-heap.is_heap_satisfied()
-print(heap.remove_min())
-# while len(xs)>0:
-#     x = min(xs)
-#     xs.remove(min(xs))
-#     print("HEP=", heap, "   heap.to_list('inorder')=", heap.to_list('inorder'), "  x=",x)
-#     assert x in heap.to_list('inorder')
-#     heap.remove_min()
-#     assert heap.is_heap_satisfied()
+
+while len(xs)>0:
+    x = min(xs)
+    xs.remove(min(xs))
+    # print(heap.to_list('inorder'))
+    assert x in heap.to_list('inorder')
+    heap.remove_min()
+    assert x not in heap.to_list('inorder')
+    assert heap.is_heap_satisfied()
