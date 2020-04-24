@@ -2,7 +2,6 @@
 '''
 
 from Trees.BinaryTree import BinaryTree, Node
-import heapq
 
 class Heap(BinaryTree):
     '''
@@ -60,8 +59,6 @@ class Heap(BinaryTree):
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-
-        print("node=", node)
 
         if node is None or (node.left is None and node.right is None):
             return True
@@ -182,7 +179,6 @@ class Heap(BinaryTree):
             return self.root
 
         else:
-            print("f")
             return Heap._replace(self.root)
 
     @staticmethod
@@ -205,15 +201,12 @@ class Heap(BinaryTree):
 
     @staticmethod
     def _hackey_solution(node):
-        # print("noodle=", node)
         if node.left is None or node.right is None:
             pass
         elif node.left.value == "hackey method":
             node.left = None
-            # return node
         elif node.right.value == "hackey method":
             node.right = None
-            # return node
         else:
             left = Heap.size(node.left)
             right = Heap.size(node.right)
@@ -228,7 +221,6 @@ class Heap(BinaryTree):
 
         if node.right is None and node.left is None:
             node.value="hackey method"
-
             return node
         elif node.right is None:
             node.left = None
@@ -238,38 +230,26 @@ class Heap(BinaryTree):
             left = Heap.size(node.left)
             right = Heap.size(node.right)
             if left > right:
-
                 return Heap._find_last_val(node.left)
-                # print("1=", node)
-                # node.left.left = None
-                # print("5=", node)
-                # node.value = val
-                # print("6=", node)
-                # return node
             else:
-                parent_node=node.right
                 return Heap._find_last_val(node.right)
-                # return node
+
 
 
     @staticmethod
     def _replace(node):
         val = Heap._last_val(node)
-        print("val=",val)
         Heap._find_last_val(node)
-        print("qfix node =", node)
         node.value=val
-        print("node head", node)
         Heap._hackey_solution(node)
-        print("hackey node=", node)
         Heap._trickle_down(node.value, node)
-        print("trickled node=", node)
+
 
         return node
 
     @staticmethod
     def _trickle_down(value, node):
-        print("in trickle", node)
+
         if Heap._is_heap_satisfied(node):
             return
         else:
@@ -277,7 +257,6 @@ class Heap(BinaryTree):
             if node.right is None and node.left is None:
                 return node
             elif node.right is None:
-                # print("node.value=", node.value)
                 if node.value <= node.left.value:
                     return node
                 else:
@@ -295,17 +274,3 @@ class Heap(BinaryTree):
                     node.value = node.right.value
                     node.right.value = tmp_node
                     return Heap._trickle_down(value, node.right)
-
-
-xs=[0]
-xs = list(set(xs))
-heap = Heap(xs)
-
-while len(xs)>0:
-    x = min(xs)
-    xs.remove(min(xs))
-    # print(heap.to_list('inorder'))
-    assert x in heap.to_list('inorder')
-    heap.remove_min()
-    assert x not in heap.to_list('inorder')
-    assert heap.is_heap_satisfied()
