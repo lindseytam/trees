@@ -4,6 +4,7 @@ These two classes are the building blocks for the BST, AVLTree, and Heap data st
 It is crucial to get these implemented correctly in order to be able to implement the other data structures.
 '''
 
+
 class Node():
     '''
     You do not have to implement anything within this class.
@@ -211,7 +212,6 @@ class BinaryTree():
 
     def height(self):
         return BinaryTree._height(self.root)
-
 
 
     @staticmethod
